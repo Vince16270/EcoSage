@@ -1,6 +1,6 @@
 # EcoSage - LLM to find sustainable solutions
 
-![Project logo](frontend/logo/logo_full.png)
+![Project logo](frontend/logo_full.png)
 
 ---
 
