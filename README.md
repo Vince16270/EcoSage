@@ -1,7 +1,7 @@
 <h1 align="center">EcoSage</h1>
 
 <p align="center">
-  <img src="frontend/logo_full.png" alt="Project logo" width="160">
+  <img src="frontend/logo_full.png" alt="Project logo" width="640">
 </p>
 
 <hr>
