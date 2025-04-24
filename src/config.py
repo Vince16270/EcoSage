@@ -17,13 +17,12 @@ INDEX_DIR: Path = MODELS_DIR / "faiss"
 CHUNKS_FILE: Path = MODELS_DIR / "chunks.json"  
 
 EMBEDDING_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
-GENERATION_MODEL_NAME: str = "openai-community/gpt2-medium"    
+GENERATION_MODEL_NAME: str = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"    
 TOP_K: int = 5                      
 CHUNK_SIZE: int = 300                  
 OVERLAP: int = 50         
 
 DEVICE: str = "cuda" if torch.cuda.is_available() else "cpu"
-
 
 # Prompt-template
 

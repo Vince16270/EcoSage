@@ -1,5 +1,5 @@
 """
-Retrieve-and-Generate (RAG) module.
+Retrieve-and-Generate (RAG) met DeepSeek-R1-Distill-Qwen-7B.
 
 Gebruik:
     >>> from src.rag import RAGChat
@@ -17,42 +17,50 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from .config import DEVICE, GENERATION_MODEL_NAME, PROMPT_TEMPLATE, TOP_K
 from .embeddings import retrieve
 
-tokenizer = AutoTokenizer.from_pretrained(GENERATION_MODEL_NAME)
-model = AutoModelForCausalLM.from_pretrained(GENERATION_MODEL_NAME).to(DEVICE)
+tokenizer = AutoTokenizer.from_pretrained(
+    GENERATION_MODEL_NAME,
+    trust_remote_code=True,      
+)
+
+model = AutoModelForCausalLM.from_pretrained(
+    GENERATION_MODEL_NAME,
+    device_map="auto",              
+    torch_dtype="auto",             
+    trust_remote_code=True,
+)
 model.eval()
 
-MAX_MODEL_LEN: int = model.config.max_position_embeddings 
+MAX_MODEL_LEN: int = model.config.max_position_embeddings  
 
 def build_prompt(question: str, context_chunks: List[str]) -> str:
-    """Zet context en vraag in de template."""
     context = "\n\n".join(context_chunks)
     return PROMPT_TEMPLATE.format(context=context, question=question)
 
 class RAGChat:
     """
-    Combineert FAISS-retrieval met LM-generatie.
+    Koppelt FAISS-retrieval aan DeepSeek-Qwen-generatie.
 
     Parameters
     ----------
     top_k : int
-        Hoeveel tekst-chunks ophalen.
+        Aantal context-chunks om op te halen.
     max_new_tokens : int
         Maximale lengte van het antwoord.
     """
 
-    def __init__(self, *, top_k: int = TOP_K, max_new_tokens: int = 128) -> None:
+    def __init__(self, *, top_k: int = TOP_K, max_new_tokens: int = 256) -> None:
         self.top_k = top_k
         self.max_new_tokens = max_new_tokens
 
     @torch.inference_mode()
     def answer(self, question: str) -> str:
-        """Geef een beknopt antwoord op `question`."""
+        """Geef een antwoord op `question` met context‐retrieval."""
         context_chunks, _ = retrieve(question, self.top_k)
         prompt = build_prompt(question, context_chunks)
 
         max_prompt_tokens = MAX_MODEL_LEN - self.max_new_tokens
         if max_prompt_tokens < 1:
-            raise ValueError("`max_new_tokens` overschrijdt de modelcontext!")
+            raise ValueError("`max_new_tokens` overschrijdt de model-context!")
 
         inputs = tokenizer(
             prompt,
@@ -65,8 +73,8 @@ class RAGChat:
             **inputs,
             max_new_tokens=self.max_new_tokens,
             max_length=MAX_MODEL_LEN,
+            do_sample=False,       
             num_beams=1,
-            do_sample=False,
             pad_token_id=tokenizer.eos_token_id,
         )
 
