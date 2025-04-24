@@ -1,4 +1,6 @@
-# Creating an LLM to find sustainable solutions
+# EcoSage - an LLM to find sustainable solutions
+
+![Project logo](frontend/logo/Logo%202%20designed%20by%20Tommi%20%26%20Vince.png)
 
 In this project, we focus on improving the accessibility of policy information related to the energy transition. Governments across Europe and the Netherlands publish numerous policy documents, regulations, and reports to support the shift toward renewable energy sources. These documents are often technical, extensive, and written in academic or legal language, making it difficult for citizens to understand their content. As a result, they miss out on important information about subsidies, regulations, or their own role in the energy transition.
 
