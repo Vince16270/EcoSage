@@ -18,16 +18,14 @@ from PyPDF2 import PdfReader
 
 from .config import CHUNK_SIZE, OVERLAP, CHUNKS_FILE
 
-# Zorg dat NLTK z’n tokenizer-data heeft
 try:
     nltk.data.find("tokenizers/punkt")
-except LookupError:  # pragma: no cover
+except LookupError: 
     nltk.download("punkt")
 
 
-# --------------------------------------------------------------------------- #
-#   Extractie & cleaning
-# --------------------------------------------------------------------------- #
+#   Extraction & cleaning
+
 def extract_text_from_pdf(pdf_path: str | Path) -> str:
     """
     Leest een PDF en geeft alle pagina-tekst als één string terug.
@@ -50,9 +48,8 @@ def clean_text(text: str) -> str:
     return text
 
 
-# --------------------------------------------------------------------------- #
 #   Chunking
-# --------------------------------------------------------------------------- #
+
 def chunk_text(text: str, size: int = CHUNK_SIZE, overlap: int = OVERLAP) -> List[str]:
     """
     Verdeelt `text` in overlappende stukken van ~`size` tokens.
@@ -69,9 +66,8 @@ def chunk_text(text: str, size: int = CHUNK_SIZE, overlap: int = OVERLAP) -> Lis
     return chunks
 
 
-# --------------------------------------------------------------------------- #
 #   Pipeline-helper
-# --------------------------------------------------------------------------- #
+
 def pdfs_to_chunks(pdf_paths: List[str | Path]) -> List[str]:
     """
     Extract + clean + chunk in één keer voor meerdere PDF’s.
@@ -92,10 +88,9 @@ def save_chunks(chunks: List[str], file_path: str | Path = CHUNKS_FILE) -> None:
         json.dump(chunks, f, ensure_ascii=False, indent=2)
 
 
-# --------------------------------------------------------------------------- #
 #   Command-line entry-point
-# --------------------------------------------------------------------------- #
-if __name__ == "__main__":  # pragma: no cover
+
+if __name__ == "__main__": 
     import argparse
 
     ap = argparse.ArgumentParser(description="Build text chunks from PDFs.")

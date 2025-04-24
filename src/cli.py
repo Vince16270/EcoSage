@@ -10,10 +10,9 @@ Assistant: REPowerEU is ...
 from __future__ import annotations
 
 import argparse
-import readline  # pijltjes/up-history
+import readline  
 
 from .rag import RAGChat
-
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="Open een RAG-chat in de terminal.")
@@ -21,7 +20,7 @@ def main() -> None:
     args = ap.parse_args()
 
     chat = RAGChat(top_k=args.top_k)
-    print("💬  Type 'exit' of Ctrl-C om te stoppen.\n")
+    print("Type 'exit' of Ctrl-C om te stoppen.\n")
 
     try:
         while True:
@@ -36,5 +35,5 @@ def main() -> None:
     print("Chat afgesloten.")
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__": 
     main()

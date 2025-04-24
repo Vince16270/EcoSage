@@ -21,18 +21,15 @@ from .config import (
     TOP_K,
 )
 
-# --------------------------------------------------
-# 1. Model & data                       ­
-# --------------------------------------------------
 embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME, device=DEVICE)
 
-# Laad tekst-chunks
+# Load tekst-chunks
 with open(CHUNKS_FILE, encoding="utf-8") as f:
     chunks: List[str] = json.load(f)
 
-# --------------------------------------------------
-# 2. FAISS-index
-# --------------------------------------------------
+
+# FAISS-index
+
 INDEX_DIR.mkdir(parents=True, exist_ok=True)
 index_file: Path = INDEX_DIR / "index.faiss"
 
@@ -46,9 +43,6 @@ else:
     faiss.write_index(index, str(index_file))
     print(f"Index opgeslagen in {index_file}")
 
-# --------------------------------------------------
-# 3. Retrieval-helper
-# --------------------------------------------------
 def retrieve(question: str, top_k: int = TOP_K) -> Tuple[List[str], List[int]]:
     """
     Geeft de `top_k` relevante tekst-chunks én hun indices terug.

@@ -21,8 +21,7 @@ tokenizer = AutoTokenizer.from_pretrained(GENERATION_MODEL_NAME)
 model = AutoModelForCausalLM.from_pretrained(GENERATION_MODEL_NAME).to(DEVICE)
 model.eval()
 
-MAX_MODEL_LEN: int = model.config.max_position_embeddings  # bv. 1024 tokens
-
+MAX_MODEL_LEN: int = model.config.max_position_embeddings 
 
 def build_prompt(question: str, context_chunks: List[str]) -> str:
     """Zet context en vraag in de template."""
