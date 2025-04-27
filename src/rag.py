@@ -56,6 +56,10 @@ class RAGChat:
     def answer(self, question: str) -> str:
         """Geef een antwoord op `question` met context‐retrieval."""
         context_chunks, _ = retrieve(question, self.top_k)
+
+        if not context_chunks:
+            return "Het spijt me, maar ik beschik niet over een direct antwoord op uw vraag en kon ook geen relevante informatie vinden."
+
         prompt = build_prompt(question, context_chunks)
 
         max_prompt_tokens = MAX_MODEL_LEN - self.max_new_tokens
@@ -72,10 +76,20 @@ class RAGChat:
         output_ids = model.generate(
             **inputs,
             max_new_tokens=self.max_new_tokens,
-            max_length=MAX_MODEL_LEN,
             do_sample=False,       
             num_beams=1,
             pad_token_id=tokenizer.eos_token_id,
         )
 
-        return tokenizer.decode(output_ids[0], skip_special_tokens=True)
+        answer_text = tokenizer.decode(output_ids[0], skip_special_tokens=True).strip()
+
+        if not answer_text:
+            # Hier is wel context, maar het model heeft niets gegenereerd
+            context_info = "\n\n".join(context_chunks)
+            return (
+                "Het spijt me, maar ik beschik niet over een direct antwoord op uw vraag. "
+                "Hier is wel relevante informatie omtrent het onderwerp:\n\n"
+                f"{context_info}"
+            )
+
+        return answer_text
