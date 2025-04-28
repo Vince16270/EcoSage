@@ -1,8 +1,5 @@
-<div style="background-color:white; text-align:center; padding:30px, sans-serif;">
-    <h2 style="color:black; margin-bottom: 5px;"><strong>EcoSage</strong></h2>
-    <h3 style="color:gray; font-weight:normal; margin-top: 0;">LLM‑Powered Chatbot for Sustainable Policy</h3>
-    <table style="margin: 20px auto 0; border-collapse: collapse; width: 60%; sans-serif; font-size: 16px;">
-        <thead>
+<h1 align="center">EcoSage</h1>
+<h3 align="center">LLM‑Powered Chatbot for Sustainable Policy</h3>
 
 ![EcoSage banner](frontend/logo_full.png)
 
