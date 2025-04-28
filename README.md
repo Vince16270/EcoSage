@@ -1,4 +1,8 @@
-# EcoSage – LLM‑Powered Chatbot for Sustainable Policy
+<div style="background-color:white; text-align:center; padding:30px, sans-serif;">
+    <h2 style="color:black; margin-bottom: 5px;"><strong>EcoSage</strong></h2>
+    <h3 style="color:gray; font-weight:normal; margin-top: 0;">LLM‑Powered Chatbot for Sustainable Policy</h3>
+    <table style="margin: 20px auto 0; border-collapse: collapse; width: 60%; sans-serif; font-size: 16px;">
+        <thead>
 
 ![EcoSage banner](frontend/logo_full.png)
 
@@ -11,13 +15,11 @@ EcoSage makes European and Dutch energy‑transition policy understandable for e
 - **Clarity for citizens.** No more wading through 200‑page regulatory texts.
 - **Proven tech.** Built on open‑source frameworks: Flask, FAISS, Transformers.
 - **Bring‑your‑own PDFs.** Just drop files in the `data/` folder—EcoSage takes care of the rest.
-- **Runs anywhere.** Laptop, workstation, server, NVIDIA CUDA, **or Apple Silicon**.
+- **Runs anywhere.** Laptop, workstation, server, NVIDIA CUDA, or Apple Silicon.
 
 ---
 
 ## Quick Start
-
-> Spin up the complete RAG pipeline—API **+** front‑end—on macOS, Linux, or Windows.
 
 ### 1. Prerequisites
 
@@ -82,7 +84,7 @@ python -m src.api
 ### 7. Open the chat UI
 
 ```
-http://127.0.0.1:5000/index.html
+http://127.0.0.1:5000
 ```
 Ask a question, watch the typing dots, and then get a answer.
 
