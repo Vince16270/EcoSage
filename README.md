@@ -1,23 +1,116 @@
-<h1 align="center">EcoSage – LLM to find sustainable solutions</h1>
+# EcoSage – LLM‑Powered Chatbot for Sustainable Policy
 
-<p align="center">
-  <img src="frontend/logo_full.png" alt="Project logo" width="640">
-</p>
+![EcoSage banner](frontend/logo_full.png)
 
-<hr>
+EcoSage makes European and Dutch energy‑transition policy understandable for everyone. It ingests official PDF documents, applies state‑of‑the‑art Retrieval‑Augmented Generation (RAG) and a Large Language Model, and serves concise, plain‑language answers through a friendly chat interface.
 
-<p>
-In this project, we focus on improving the accessibility of policy information related to the energy transition. Governments across Europe and the Netherlands publish numerous policy documents, regulations, and reports to support the shift toward renewable energy sources. These documents are often technical, extensive, and written in academic or legal language, making it difficult for citizens to understand their content. As a result, they miss out on important information about subsidies, regulations, or their own role in the energy transition.
-</p>
+---
 
-<p>
-To address this problem, we are developing a chatbot powered by a Large Language Model (LLM). This chatbot is capable of automatically analyzing, summarizing, and translating government documents into plain and understandable language. Users can ask questions through a simple interface, and the chatbot provides clear answers based on factual information.
-</p>
+## Why EcoSage?
 
-<p>
-Our approach consists of collecting policy documents in PDF format, preprocessing the texts using NLP techniques such as tokenization and filtering, and leveraging a powerful pretrained LLM for text processing. Instead of training a model from scratch, we utilize a pretrained model and Retrieval-Augmented Generation (RAG) to generate relevant answers. The generated responses are evaluated based on their clarity, relevance, and reliability.
-</p>
+- **Clarity for citizens.** No more wading through 200‑page regulatory texts.
+- **Proven tech.** Built on open‑source frameworks: Flask, FAISS, Transformers.
+- **Bring‑your‑own PDFs.** Just drop files in the `data/` folder—EcoSage takes care of the rest.
+- **Runs anywhere.** Laptop, workstation, server, NVIDIA CUDA, **or Apple Silicon**.
 
-<p>
-With this tool, we aim to contribute to a better-informed society in which citizens have easy access to simplified yet essential information. In doing so, we not only increase public engagement in the energy transition, but also strengthen support for sustainable policy.
-</p>
+---
+
+## Quick Start
+
+> Spin up the complete RAG pipeline—API **+** front‑end—on macOS, Linux, or Windows.
+
+### 1. Prerequisites
+
+| Requirement | Version (or newer) |
+|-------------|--------------------|
+| Python      | 3.8 – 3.12         |
+| Git         | Latest stable      |
+| Node.js ✱   | *Optional* (serve HTML from another server) |
+
+✱ Not needed if you simply double‑click **`index.html`** or let Flask host static files.
+
+#### GPU acceleration (optional)
+
+| Hardware                 | Setup |
+|--------------------------|-------|
+| **NVIDIA GPU** (≥ 6 GB VRAM) | 1. Install CUDA 11.8 & cuDNN 8.<br>2. `pip install torch --index-url https://download.pytorch.org/whl/cu118`<br>3. `pip install bitsandbytes` |
+| **Apple Silicon (M‑series)** | 1. Install the Metal‑optimized wheels:<br>`pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu`<br>2. Set `export PYTORCH_ENABLE_MPS_FALLBACK=1` if you mix CPU & GPU ops |
+
+### 2. Clone the repo
+
+```bash
+git clone https://github.com/Vince16270/EcoSage
+cd EcoSage
+```
+
+### 3. Create & activate a virtual environment
+
+```bash
+python -m venv .venv
+# Windows
+.\.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+```
+
+### 4. Install Python dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+> **Tip**   GPU users can swap `faiss‑cpu` for `faiss‑gpu` in *requirements.txt*.
+
+### 5. Pre‑process documents (first run only)
+
+```bash
+python -m src.preprocessing data/*.pdf
+```
+This will:
+1. Split PDFs into manageable text chunks.
+2. Embed each chunk.
+3. Save `models/chunks.json` and the FAISS index `models/index.faiss`.
+
+### 6. Launch the API
+
+```bash
+python -m src.api
+```
+- Flask serves at **`http://127.0.0.1:5000`**.
+- Static files in `frontend/` are auto‑served.
+
+### 7. Open the chat UI
+
+```
+http://127.0.0.1:5000/index.html
+```
+Ask a question, watch the typing dots, and then get a answer.
+
+### 8. Environment variables (common)
+
+| Variable     | Description                  | Default |
+|--------------|------------------------------|---------|
+| `PORT`       | Flask port                   | `5000`  |
+| `DEVICE`     | `cpu`, `cuda`, `mps`, `auto` | `auto`  |
+| `MODEL_NAME` | HuggingFace id for generator | `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` |
+
+Example:
+```bash
+export PORT=8080
+export DEVICE=mps 
+python -m src.api
+```
+
+---
+
+## Updating
+
+```bash
+git pull
+pip install -r requirements.txt --upgrade
+```
+
+---
+
+© 2025 EcoSage AI • MIT License
+

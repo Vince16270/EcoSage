@@ -6,27 +6,40 @@ op één centrale plek, zodat je ze niet door de code hoeft te zoeken.
 """
 
 from pathlib import Path
+import os
 import torch
 
-# Paths and Settings
+os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
-BASE_DIR: Path = Path(__file__).resolve().parent.parent
-DATA_DIR: Path = BASE_DIR / "data"
-MODELS_DIR: Path = BASE_DIR / "models"
-INDEX_DIR: Path = MODELS_DIR / "faiss"
-CHUNKS_FILE: Path = MODELS_DIR / "chunks.json"  
+# ── Paths ─────────────────────────────────────────────────────────
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+MODELS_DIR = BASE_DIR / "models"
+INDEX_DIR = MODELS_DIR / "faiss"
+CHUNKS_FILE = MODELS_DIR / "chunks.json"
 
-EMBEDDING_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
-GENERATION_MODEL_NAME: str = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"    
-TOP_K: int = 5                      
-CHUNK_SIZE: int = 300                  
-OVERLAP: int = 50         
+# ── Models / RAG params ───────────────────────────────────────────
+EMBEDDING_MODEL_NAME   = "sentence-transformers/all-MiniLM-L6-v2"
+GENERATION_MODEL_NAME  = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+TOP_K        = 5
+CHUNK_SIZE   = 300
+OVERLAP      = 50
 
-DEVICE: str = "cuda" if torch.cuda.is_available() else "cpu"
+# ── Device selection (CPU · CUDA · Apple MPS) ─────────────────────
+device_env = os.getenv("DEVICE", "auto").lower()          
 
-# Prompt-template
+if device_env == "auto":
+    if torch.cuda.is_available():
+        DEVICE = "cuda"
+    elif torch.backends.mps.is_available():
+        DEVICE = "mps"            
+    else:
+        DEVICE = "cpu"
+else:
+    DEVICE = device_env          
 
-PROMPT_TEMPLATE: str = """You're an expert in European policy.
+# ── Prompt template ───────────────────────────────────────────────
+PROMPT_TEMPLATE = """You're an expert in European policy.
 You have access to the following context:
 {context}
 

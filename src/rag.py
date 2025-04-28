@@ -24,9 +24,10 @@ tokenizer = AutoTokenizer.from_pretrained(
 
 model = AutoModelForCausalLM.from_pretrained(
     GENERATION_MODEL_NAME,
-    device_map="auto",              
-    torch_dtype="auto",             
+    torch_dtype=torch.float16, 
+    device_map={"": DEVICE},                         
     trust_remote_code=True,
+    attn_implementation="eager"
 )
 model.eval()
 
@@ -84,7 +85,6 @@ class RAGChat:
         answer_text = tokenizer.decode(output_ids[0], skip_special_tokens=True).strip()
 
         if not answer_text:
-            # Hier is wel context, maar het model heeft niets gegenereerd
             context_info = "\n\n".join(context_chunks)
             return (
                 "Het spijt me, maar ik beschik niet over een direct antwoord op uw vraag. "

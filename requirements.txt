@@ -1,0 +1,22 @@
+# Core
+transformers>=4.39.0
+sentence-transformers>=2.3.0
+torch>=2.2.0
+faiss-cpu>=1.7.4
+bitsandbytes>=0.43.1
+
+# Web API
+flask>=2.3.0
+flask-cors>=4.0.0
+
+# NLP / Utils
+nltk>=3.8.1
+numpy>=1.24
+scikit-learn>=1.4
+python-dotenv>=1.0
+
+# Progress bars / misc.
+tqdm>=4.66
+
+# Mac GPU users only – MPS wheel is bundled with torch 2.2+ (no extra install)
+# CUDA users: replace faiss-cpu with faiss-gpu and install torch‑‑cu118 wheel.
