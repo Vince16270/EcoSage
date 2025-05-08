@@ -1,8 +1,6 @@
 """
-Globale configuratie-instellingen voor de chatbot-applicatie.
+Globale configuratie-instellingen voor de EcoSage Chat.
 
-Hiermee hou je paden, model-namen en andere ‘magic numbers’
-op één centrale plek, zodat je ze niet door de code hoeft te zoeken.
 """
 
 from pathlib import Path
@@ -20,9 +18,9 @@ CHUNKS_FILE = MODELS_DIR / "chunks.json"
 
 # ── Models / RAG params ───────────────────────────────────────────
 EMBEDDING_MODEL_NAME   = "sentence-transformers/all-MiniLM-L6-v2"
-GENERATION_MODEL_NAME  = "perplexity-ai/r1-1776-distill-llama-70b"
+GENERATION_MODEL_NAME  = "openai-community/gpt2-medium"
 TOP_K        = 5
-CHUNK_SIZE   = 300
+CHUNK_SIZE   = 512
 OVERLAP      = 50
 
 # ── Device selection (CPU · CUDA · Apple MPS) ─────────────────────
