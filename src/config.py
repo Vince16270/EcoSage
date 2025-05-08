@@ -20,7 +20,7 @@ CHUNKS_FILE = MODELS_DIR / "chunks.json"
 
 # ── Models / RAG params ───────────────────────────────────────────
 EMBEDDING_MODEL_NAME   = "sentence-transformers/all-MiniLM-L6-v2"
-GENERATION_MODEL_NAME  = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+GENERATION_MODEL_NAME  = "perplexity-ai/r1-1776-distill-llama-70b"
 TOP_K        = 5
 CHUNK_SIZE   = 300
 OVERLAP      = 50
