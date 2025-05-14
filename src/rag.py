@@ -19,7 +19,7 @@ from .embeddings import retrieve
 
 tokenizer = AutoTokenizer.from_pretrained(
     GENERATION_MODEL_NAME,
-    trust_remote_code=True,      
+    trust_remote_code=True,   
 )
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -77,7 +77,7 @@ class RAGChat:
         output_ids = model.generate(
             **inputs,
             max_new_tokens=self.max_new_tokens,
-            do_sample=False,       
+            do_sample=True,       
             num_beams=1,
             pad_token_id=tokenizer.eos_token_id,
         )

@@ -18,7 +18,7 @@ CHUNKS_FILE = MODELS_DIR / "chunks.json"
 
 # ── Models / RAG params ───────────────────────────────────────────
 EMBEDDING_MODEL_NAME   = "sentence-transformers/all-MiniLM-L6-v2"
-GENERATION_MODEL_NAME  = "perplexity-ai/r1-1776-distill-llama-70b"
+GENERATION_MODEL_NAME  = "NousResearch/Hermes-3-Llama-3.2-3B"
 TOP_K        = 5
 CHUNK_SIZE   = 512
 OVERLAP      = 50
