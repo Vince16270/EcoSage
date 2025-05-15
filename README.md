@@ -1,6 +1,5 @@
-# EcoSage
-
-**LLM‑Powered Chatbot for Sustainable Policy**
+<h1 align="center">EcoSage</h1>
+<h3 align="center">LLM‑Powered Chatbot for Sustainable Policy</h3>
 
 ![EcoSage banner](frontend/logo_full.png)
 
