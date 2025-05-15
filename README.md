@@ -91,7 +91,7 @@ Ask a question, watch the typing dots, and then get a answer.
 |--------------|------------------------------|---------|
 | `PORT`       | Flask port                   | `5000`  |
 | `DEVICE`     | `cpu`, `cuda`, `mps`, `auto` | `auto`  |
-| `MODEL_NAME` | HuggingFace id for generator | `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` |
+| `MODEL_NAME` | HuggingFace id for generator | `NousResearch/Hermes-3-Llama-3.2-3B` |
 
 Example:
 ```bash

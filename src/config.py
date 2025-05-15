@@ -1,6 +1,5 @@
 """
 Globale configuratie-instellingen voor de EcoSage Chat-applicatie.
-
 """
 
 from pathlib import Path

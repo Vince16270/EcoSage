@@ -82,7 +82,9 @@ class RAGChat:
             pad_token_id=tokenizer.eos_token_id,
         )
 
-        answer_text = tokenizer.decode(output_ids[0], skip_special_tokens=True).strip()
+        prompt_len = inputs["input_ids"].shape[-1]
+        gen_ids    = output_ids[0][prompt_len:]  
+        answer_text = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
 
         if not answer_text:
             context_info = "\n\n".join(context_chunks)
