@@ -1,8 +1,6 @@
 """
-Functies voor het inlezen en voorbereiden (chunken, schonen) van teksten.
-
-Gebruik deze module éénmalig om ruwe documenten om
-te zetten in nette tekst-chunks + bijbehorende FAISS-index.
+Functions for reading and preparing (chunking, cleaning) texts.
+Use this module once to convert raw documents into clean text chunks and the corresponding FAISS index.
 """
 
 from __future__ import annotations

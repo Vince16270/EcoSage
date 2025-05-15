@@ -1,6 +1,6 @@
 """
-Laadt de sentence-transformer, bouwt (of herlaadt) de FAISS-index
-en stelt één helperfunctie beschikbaar: `retrieve(question)`.
+Loads the sentence transformer, builds (or reloads) the FAISS index,
+and provides a single helper function: retrieve(question).
 """
 
 from __future__ import annotations
@@ -27,9 +27,7 @@ embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME, device=DEVICE)
 with open(CHUNKS_FILE, encoding="utf-8") as f:
     chunks: List[str] = json.load(f)
 
-
 # FAISS-index
-
 INDEX_DIR.mkdir(parents=True, exist_ok=True)
 index_file: Path = INDEX_DIR / "index.faiss"
 
