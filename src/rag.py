@@ -99,10 +99,17 @@ class RAGChat:
         answer = re.sub(r"\([^)]*words?[^)]*\)", "", answer, flags=re.I).strip()
 
         if not answer:
-            ctx = "\n\n".join(context_chunks)
-            return ("Het spijt me, ik heb geen direct antwoord gevonden.\n\n" + ctx
-                    if lang.startswith("nl")
-                    else "Sorry, I couldn't generate an answer.\n\n" + ctx)
+            # Begin van de nette fallback
+            lines = ["Sorry, I couldn't generate an answer. Here are some relevant sources:\n"]
+            for i, chunk in enumerate(context_chunks, start=1):
+                # Als je chunks dicts zijn met metadata:
+                source = chunk.get("file_name", "Unknown source")
+                cid    = chunk.get("chunk_id", "?")
+                text   = chunk.get("text", str(chunk))
+                # Pak de eerste 150 tekens als snippet, vervang newlines door spaties
+                snippet = text.replace("\n", " ")[:150].rstrip() + "…"
+                lines.append(f"{i}. {source} (chunk {cid}): {snippet}")
+            return "\n".join(lines)
 
         # 3) Vertaal indien NL
         if lang.lower().startswith("nl"):
