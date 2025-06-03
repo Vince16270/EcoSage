@@ -7,498 +7,119 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #1a1a1a;
-      --text-primary: #ffffff;
-      --text-secondary: #a0a0a0;
-      --accent: #10a37f;
-      --accent-hover: #0d8c6d;
-      --border: #2a2a2a;
-      --radius: 12px;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    :root{
+      --bg-primary:#0a0a0a;
+      --bg-secondary:#1a1a1a;
+      --text-primary:#ffffff;
+      --text-secondary:#a0a0a0;
+      --accent:#10a37f;
+      --accent-hover:#0d8c6d;
+      --border:#2a2a2a;
+      --radius:12px;
     }
+    *{box-sizing:border-box;margin:0;padding:0}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    html,body{
+      height:100%;
+      font-family:"Inter",system-ui,sans-serif;
+      background:var(--bg-primary);color:var(--text-primary);
     }
+    body{display:flex}
 
-    html, body {
-      height: 100%;
-      font-family: "Inter", system-ui, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+    /* ── Sidebar ── */
+    #sidebar{
+      position:fixed;left:-280px;top:0;height:100%;width:280px;
+      background:var(--bg-secondary);border-right:1px solid var(--border);
+      display:flex;flex-direction:column;padding:24px 16px;transition:left .3s ease;z-index:200;
     }
+    #sidebar.open{left:0}
+    .session{padding:12px;border-radius:var(--radius);background:rgba(255,255,255,.05);
+      margin-bottom:8px;font-size:.9rem;cursor:pointer;color:var(--text-secondary);transition:background .2s}
+    .session:hover{background:rgba(255,255,255,.1)}
+    .btn{border:none;border-radius:var(--radius);padding:10px 16px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s}
+    #newBtn{background:var(--accent);color:#fff;margin-bottom:20px}
+    #newBtn:hover{background:var(--accent-hover)}
+    #clearHist{background:transparent;color:var(--text-secondary);border:1px solid var(--border);margin-top:auto}
+    #clearHist:hover{background:rgba(255,255,255,.05)}
 
-    body {
-      display: flex;
-    }
-
-    /* Sidebar */
-    #sidebar {
-      position: fixed;
-      left: -280px;
-      top: 0;
-      height: 100%;
-      width: 280px;
-      background: var(--bg-secondary);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      padding: 24px 16px;
-      transition: left 0.3s ease;
-      z-index: 200;
-    }
-
-    #sidebar.open {
-      left: 0;
-    }
-
-    #sidebar h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--text-primary);
-    }
-
-    .session {
-      padding: 12px;
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.05);
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      color: var(--text-secondary);
-    }
-
-    .session:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .btn {
-      border: none;
-      border-radius: var(--radius);
-      padding: 10px 16px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-
-    #newBtn {
-      background: var(--accent);
-      color: white;
-      margin-bottom: 20px;
-    }
-
-    #newBtn:hover {
-      background: var(--accent-hover);
-    }
-
-    #clearHist {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-      margin-top: auto;
-    }
-
-    #clearHist:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    /* Chat wrapper */
-    .chat-wrapper {
-      flex: 1;
-      height: 100%;
-      background: var(--bg-primary);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: margin-left 0.3s ease;
-    }
-
-    #sidebar.open ~ .chat-wrapper {
-      margin-left: 280px;
-    }
+    /* ── Chat wrapper ── */
+    .chat-wrapper{flex:1;height:100%;display:flex;flex-direction:column;overflow:hidden;transition:margin-left .3s ease}
+    #sidebar.open ~ .chat-wrapper{margin-left:280px}
 
     /* Header */
-    .header {
-      height: 70px;
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      position: relative;
-      justify-content: flex-start;
-    }
+    .header{height:70px;background:var(--bg-secondary);border-bottom:1px solid var(--border);
+      display:flex;align-items:center;padding:0 24px;position:relative}
+    #toggle{width:40px;height:40px;background:none;border:none;cursor:pointer;margin-right:18px;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1001}
+    #toggle span{width:28px;height:4px;background:#fff;margin:3px 0;border-radius:2px;transition:background .2s}
+    #toggle:hover span{background:var(--accent)}
+    .header h1{font-size:1.25rem;font-weight:600;flex:1}
+    .header-right{position:absolute;right:24px;top:0;height:100%;display:flex;align-items:center;gap:18px}
+    .logo{width:38px;height:38px;object-fit:contain}
+    .lang-toggle{background:var(--bg-primary);border-radius:var(--radius);padding:4px;display:flex;gap:2px;border:1px solid var(--border)}
+    .lang-btn{border:none;border-radius:6px;padding:6px 16px;font-size:.85rem;font-weight:500;cursor:pointer;background:none;color:var(--text-secondary);transition:all .2s}
+    .lang-btn.active{background:var(--accent);color:#fff}
+    .lang-btn:hover:not(.active){background:rgba(255,255,255,.05)}
+    @media(max-width:600px){.logo{width:28px;height:28px}.header-right{right:8px;gap:8px}}
 
-    #toggle {
-      margin-right: 18px;
-      margin-left: 0;
-      width: 40px;
-      height: 40px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1001;
-    }
-
-    #toggle span {
-      display: block;
-      width: 28px;
-      height: 4px;
-      background: #fff;
-      margin: 3px 0;
-      border-radius: 2px;
-      transition: background 0.2s;
-    }
-
-    #toggle:hover span {
-      background: var(--accent);
-    }
-
-    .header h1 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0 0 0 0;
-      display: inline-block;
-      vertical-align: middle;
-      flex: 1;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      position: absolute;
-      right: 24px;
-      top: 0;
-      height: 100%;
-      gap: 18px;
-    }
-
-    .logo {
-      width: 38px;
-      height: 38px;
-      object-fit: contain;
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0 0 0 8px;
-    }
-
-    .lang-toggle {
-      background: var(--bg-primary);
-      border-radius: var(--radius);
-      padding: 4px;
-      display: flex;
-      gap: 2px;
-      border: 1px solid var(--border);
-    }
-
-    .lang-btn {
-      border: none;
-      border-radius: 6px;
-      padding: 6px 16px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      background: none;
-      color: var(--text-secondary);
-      transition: all 0.2s;
-    }
-
-    .lang-btn.active {
-      background: var(--accent);
-      color: white;
-    }
-
-    .lang-btn:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    /* Animated gradient heading */
-    .hero h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      background: linear-gradient(270deg, #10a37f, #00b4d8, #10a37f, #00b4d8);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientMove 8s ease-in-out infinite;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @media (max-width: 600px) {
-      .logo {
-        width: 28px;
-        height: 28px;
-        margin-left: 0;
-        margin-right: 0;
-      }
-      .header-right {
-        right: 8px;
-        gap: 8px;
-      }
-    }
-
-    /* Hero section */
-    .hero {
-      text-align: center;
-      padding: 80px 24px 40px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
+    /* Hero */
+    .hero{text-align:center;padding:80px 24px 40px;max-width:800px;margin:0 auto}
+    .hero h2{font-size:2rem;font-weight:700;margin-bottom:16px;
+      background:linear-gradient(270deg,#10a37f,#00b4d8,#10a37f,#00b4d8);background-size:400% 400%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:grad 8s ease-in-out infinite}
+    @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .hero p{font-size:1.1rem;color:var(--text-secondary);line-height:1.6}
 
     /* Suggestions */
-    .suggestions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 0 24px 40px;
-      max-width: 800px;
-      margin: 0 auto;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-
-    .suggestions.fade {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-
-    .suggestions button {
-      border: 1px solid var(--border);
-      background: var(--bg-secondary);
-      color: var(--text-secondary);
-      border-radius: var(--radius);
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-
-    .suggestions button:hover {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
+    .suggestions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:0 24px 40px;max-width:800px;margin:0 auto;transition:opacity .3s,transform .3s}
+    .suggestions.fade{opacity:0;transform:translateY(12px)}
+    .suggestions button{border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-secondary);
+      border-radius:var(--radius);padding:10px 16px;font-size:.9rem;cursor:pointer;transition:all .2s}
+    .suggestions button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 
     /* Chat log */
-    #chatlog {
-      flex: 1;
-      overflow-y: auto;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      font-size: 0.95rem;
-      max-width: 800px;
-      margin: 0 auto;
-      width: 100%;
-    }
+    #chatlog{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:24px;font-size:.95rem;width:100%}
 
-    .bubble {
-      max-width: 85%;
-      padding: 16px 20px;
-      border-radius: var(--radius);
-      line-height: 1.5;
-      opacity: 0;
-      transform: translateY(18px);
+    .bubble{
+      display:inline-block;
+      /* auto breedte: browser berekent op basis van inhoud */
+      width:-moz-fit-content;width:fit-content;
+      max-width:90%;      /* lange berichten breken alsnog af */
+      padding:16px 20px;border-radius:var(--radius);
+      line-height:1.5;opacity:0;transform:translateY(18px);
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+      word-wrap:break-word;
     }
+    .bubble.in{animation:fadeSlide .4s forwards}
+    @keyframes fadeSlide{to{opacity:1;transform:none}}
 
-    .bubble.in {
-      animation: fadeSlide 0.4s forwards;
-    }
+    .user{background:var(--accent);color:#fff;margin-left:auto;transform:translate(30px,18px)}
+    .user.in{animation:slideR .4s forwards}
+    @keyframes slideR{to{opacity:1;transform:none}}
 
-    @keyframes fadeSlide {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
+    .bot{background:var(--bg-secondary);color:var(--text-primary);margin-right:auto;transform:translate(-30px,18px)}
+    .bot.in{animation:slideL .4s forwards}
+    @keyframes slideL{to{opacity:1;transform:none}}
 
-    .user {
-      background: var(--accent);
-      color: white;
-      margin-left: auto;
-      transform: translate(30px, 18px);
-    }
+    /* Typing indicator */
+    .typing span{width:6px;height:6px;border-radius:50%;background:var(--text-secondary);display:inline-block;margin-right:4px;animation:pulse 1s infinite}
+    .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+    @keyframes pulse{0%,80%,100%{opacity:.3}40%{opacity:1}}
 
-    .user.in {
-      animation: slideR 0.4s forwards;
-    }
+    /* Input */
+    form{display:flex;gap:12px;padding:24px;background:var(--bg-secondary);border-top:1px solid var(--border)}
+    input{flex:1;padding:14px 20px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-primary);color:var(--text-primary);font-size:.95rem;transition:border-color .2s}
+    input:focus{outline:none;border-color:var(--accent)}
+    form button{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:14px 24px;font-size:.95rem;cursor:pointer;transition:background .2s}
+    form button:hover{background:var(--accent-hover)}
 
-    @keyframes slideR {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
+    /* Scrollbar */
+    ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:var(--text-secondary)}
 
-    .bot {
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      transform: translate(-30px, 18px);
-    }
-
-    .bot.in {
-      animation: slideL 0.4s forwards;
-    }
-
-    @keyframes slideL {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    .typing span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--text-secondary);
-      display: inline-block;
-      margin-right: 4px;
-      animation: pulse 1s infinite;
-    }
-
-    .typing span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes pulse {
-      0%, 80%, 100% {
-        opacity: 0.3;
-      }
-      40% {
-        opacity: 1;
-      }
-    }
-
-    /* Input form */
-    form {
-      display: flex;
-      gap: 12px;
-      padding: 24px;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border);
-    }
-
-    input {
-      flex: 1;
-      padding: 14px 20px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: border-color 0.2s;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    form button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: var(--radius);
-      padding: 14px 24px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.2s;
-    }
-
-    form button:hover {
-      background: var(--accent-hover);
-    }
-
-    /* Scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-primary);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-secondary);
-    }
-
-    /* YouTube floating video - center right */
-    #yt-video {
-      position: fixed;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      width: 280px;
-      height: 158px;
-      z-index: 9999;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-      background: #111;
-      transition: box-shadow 0.2s;
-    }
-    #yt-video:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-    }
-    #yt-video iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-    @media (max-width: 600px) {
-      #yt-video {
-        width: 160px;
-        height: 90px;
-        right: 10px;
-        top: 60%;
-        transform: translateY(-50%);
-      }
-      .logo {
-        width: 28px;
-        height: 28px;
-        margin-left: 8px;
-        margin-right: 8px;
-      }
-    }
+    /* Test-animatie */
+    .bubble.test-anim{background:linear-gradient(135deg,#10a37f,#00b4d8,#10a37f);background-size:400% 400%;
+      animation:grad 4s linear infinite,fadeSlide .4s forwards;color:#fff}
   </style>
 </head>
 <body>
@@ -539,31 +160,24 @@
   </form>
 </div>
 
-<!-- YouTube floating video -->
-<div id="yt-video">
-  <iframe width="280" height="158" src="https://www.youtube.com/embed/Xuv1wMsUz5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div>
-
 <script>
-/* Text resources */
-const TEXT={en:{heroH2:"What can I help with?",heroP:"Ask anything about European energy & climate policy.",
-                ph:"Type your question…",send:"Send",hist:"History",newChat:"New Chat",
-                clear:"Clear History",noSess:"No sessions",
-                ex:["Explain the EU Green Deal","Key points of Fit-for-55","Latest ETS regulations",
-                    "Subsidies for solar panels","Impact of REPowerEU","What is the Just Transition Fund?",
-                    "How does the CBAM work?","EU targets for renewable energy","Funding opportunities for hydrogen",
-                    "Timeline of the Energy Efficiency Directive","Role of carbon pricing in aviation",
-                    "Status of offshore wind in Europe","Difference between RED II and RED III",
-                    "Criticism of EU taxonomy rules","Future of nuclear in EU climate policy"]},
-           nl:{heroH2:"Waarmee kan ik je mee helpen?",heroP:"Stel al je vragen over Europees energie- & klimaatbeleid.",
-                ph:"Typ je vraag…",send:"Versturen",hist:"Geschiedenis",newChat:"Nieuw gesprek",
-                clear:"Geschiedenis wissen",noSess:"Geen sessies",
-                ex:["Leg de Europese Green Deal uit","Belangrijkste punten van Fit-for-55","Laatste ETS-regels",
-                    "Subsidies voor zonnepanelen","Impact van REPowerEU","Wat is het Just Transition Fund?",
-                    "Hoe werkt de CBAM?","EU-doelen voor hernieuwbare energie","Financiering voor waterstof",
-                    "Tijdlijn van de Energie-efficiëntierichtlijn","Rol van koolstofbeprijzing in de luchtvaart",
-                    "Stand van offshore-wind in Europa","Verschil tussen RED II en RED III",
-                    "Kritiek op EU-taxonomieregels","Toekomst van kernenergie in het EU-klimaatbeleid"]}};
+/* ── Text resources ── */
+const TEXT={
+  en:{heroH2:"What can I help with?",heroP:"Ask anything about European energy & climate policy.",
+      ph:"Type your question…",send:"Send",hist:"History",newChat:"New Chat",clear:"Clear History",noSess:"No sessions",
+      ex:["Explain the EU Green Deal","Key points of Fit-for-55","Latest ETS regulations","Subsidies for solar panels",
+          "Impact of REPowerEU","What is the Just Transition Fund?","How does the CBAM work?","EU targets for renewable energy",
+          "Funding opportunities for hydrogen","Timeline of the Energy Efficiency Directive","Role of carbon pricing in aviation",
+          "Status of offshore wind in Europe","Difference between RED II and RED III","Criticism of EU taxonomy rules",
+          "Future of nuclear in EU climate policy"]},
+  nl:{heroH2:"Waarmee kan ik je mee helpen?",heroP:"Stel al je vragen over Europees energie- & klimaatbeleid.",
+      ph:"Typ je vraag…",send:"Versturen",hist:"Geschiedenis",newChat:"Nieuw gesprek",clear:"Geschiedenis wissen",noSess:"Geen sessies",
+      ex:["Leg de Europese Green Deal uit","Belangrijkste punten van Fit-for-55","Laatste ETS-regels","Subsidies voor zonnepanelen",
+          "Impact van REPowerEU","Wat is het Just Transition Fund?","Hoe werkt de CBAM?","EU-doelen voor hernieuwbare energie",
+          "Financiering voor waterstof","Tijdlijn van de Energie-efficiëntierichtlijn","Rol van koolstofbeprijzing in de luchtvaart",
+          "Stand van offshore-wind in Europa","Verschil tussen RED II en RED III","Kritiek op EU-taxonomieregels",
+          "Toekomst van kernenergie in het EU-klimaatbeleid"]}
+};
 
 const $=id=>document.getElementById(id),LS="ecoHist";
 const sidebar=$("sidebar"),toggle=$("toggle"),chat=$("chatlog"),hero=$("hero"),sugg=$("suggestions"),
@@ -573,13 +187,13 @@ const sidebar=$("sidebar"),toggle=$("toggle"),chat=$("chatlog"),hero=$("hero"),s
 
 let lang="en",buf=[];
 
-/* Language toggle */
+/* ── Language toggle ── */
 langButtons.forEach(btn=>btn.onclick=()=>{
   langButtons.forEach(b=>b.classList.toggle("active",b===btn));
   lang=btn.dataset.lang;refreshUI();
 });
 
-/* UI refresh */
+/* ── UI refresh ── */
 function refreshUI(){
   const t=TEXT[lang];
   hero.querySelector("h2").textContent=t.heroH2;
@@ -591,7 +205,7 @@ function refreshUI(){
   list();
 }
 
-/* Suggestions chips */
+/* ── Suggestions ── */
 function drawSug(){
   sugg.innerHTML="";
   const arr=[...TEXT[lang].ex];
@@ -600,61 +214,90 @@ function drawSug(){
     const b=document.createElement("button");b.textContent=txt;sugg.appendChild(b);
   }
 }
-drawSug(); /* initial */
+drawSug();
 
-/* Sidebar toggle */
+/* ── Sidebar toggle ── */
 toggle.onclick=()=>sidebar.classList.toggle("open");
 
-/* bubble helpers */
+/* ── Bubble helpers ── */
 const bubble=(txt,cls)=>{
-  const d=document.createElement("div");d.className=`bubble ${cls}`;d.textContent=txt;
-  chat.appendChild(d);requestAnimationFrame(()=>d.classList.add("in"));chat.scrollTop=chat.scrollHeight;
+  const d=document.createElement("div");
+  d.className=`bubble ${cls}`;d.textContent=txt;
+  chat.appendChild(d);
+  requestAnimationFrame(()=>d.classList.add("in"));
+  chat.scrollTop=chat.scrollHeight;
 };
 const typing=()=>{
   const d=document.createElement("div");d.className="bubble bot";
-  d.innerHTML='<span class=\"typing\"><span></span><span></span><span></span></span>';
-  chat.appendChild(d);requestAnimationFrame(()=>d.classList.add("in"));chat.scrollTop=chat.scrollHeight;return d;
+  d.innerHTML='<span class="typing"><span></span><span></span><span></span></span>';
+  chat.appendChild(d);requestAnimationFrame(()=>d.classList.add("in"));
+  chat.scrollTop=chat.scrollHeight;return d;
 };
 
-/* History helpers */
+/* ── History helpers ── */
 const getH=()=>JSON.parse(localStorage.getItem(LS)||"[]");
 const saveH=h=>localStorage.setItem(LS,JSON.stringify(h.slice(-20)));
 const store=()=>{if(!buf.length)return;const h=getH();h.push({time:new Date().toLocaleString(),chat:buf});saveH(h);buf=[]};
 const list=()=>{
   hist.innerHTML="";
   const h=getH();
-  if(!h.length){hist.innerHTML=`<p style='font-size:.85rem;color:#666'>${TEXT[lang].noSess}</p>`;return;}
+  if(!h.length){
+    hist.innerHTML=`<p style="font-size:.85rem;color:#666">${TEXT[lang].noSess}</p>`;
+    return;
+  }
   h.slice().reverse().forEach(s=>{
-    const div=document.createElement("div");div.className="session";div.textContent=s.time;div.onclick=()=>load(s);hist.appendChild(div);
+    const div=document.createElement("div");div.className="session";
+    div.textContent=s.time;div.onclick=()=>load(s);hist.appendChild(div);
   });
 };
-const load=s=>{sidebar.classList.remove("open");chat.innerHTML="";
-  s.chat.forEach(m=>bubble(m.text,m.role));hero.style.display="none";sugg.style.display="none"};
+const load=s=>{
+  sidebar.classList.remove("open");chat.innerHTML="";
+  s.chat.forEach(m=>bubble(m.text,m.role));
+  hero.style.display="none";sugg.style.display="none";
+};
 list();
 
-/* buttons */
+/* ── Buttons ── */
 newBtn.onclick=()=>{store();chat.innerHTML="";hero.style.display="block";sugg.style.display="flex";drawSug();inp.focus()};
 clearBtn.onclick=()=>{localStorage.removeItem(LS);list()};
 
-/* suggestion click */
-sugg.onclick=e=>{if(e.target.tagName==="BUTTON"){inp.value=e.target.textContent;form.dispatchEvent(new Event("submit"))}};
+/* ── Suggestion click ── */
+sugg.onclick=e=>{
+  if(e.target.tagName==="BUTTON"){
+    inp.value=e.target.textContent;form.dispatchEvent(new Event("submit"));
+  }
+};
 
-/* form submit */
+/* ── Form submit ── */
 form.addEventListener("submit",async e=>{
   e.preventDefault();
   const msg=inp.value.trim();if(!msg)return;
   hero.style.display="none";sugg.style.display="none";
   bubble(msg,"user");buf.push({role:"user",text:msg});
   inp.value="";inp.focus();
+
+  /* Special keyword: 'test' */
+  if(msg.toLowerCase()==="test"){
+    const wait=typing();            
+    setTimeout(()=>{         
+      wait.remove();
+      bubble("Test animation","bot test-anim");
+      buf.push({role:"bot",text:"Test animation!"});
+    },2000);
+    return;                      
+  }
+
   const wait=typing();
   try{
     const r=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:msg,lang})});
     const d=await r.json();
     wait.remove();bubble(d.reply,"bot");buf.push({role:"bot",text:d.reply});
-  }catch{wait.remove();bubble("Something went wrong.","bot")}
+  }catch{
+    wait.remove();bubble("Something went wrong.","bot");
+  }
 });
 
-/* save on unload */
+/* ── Save on unload ── */
 window.addEventListener("beforeunload",store);
 </script>
 </body>
