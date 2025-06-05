@@ -29,10 +29,18 @@ def chat_endpoint():
     if not message:
         return jsonify(error="JSON moet een 'message' bevatten"), 400
 
-    lang = data.get("lang", "en")     
+    lang = data.get("lang", "en")
 
-    reply = chat.answer(message, lang=lang) 
-    return jsonify(reply=reply)
+    try:
+        reply = chat.answer(message, lang=lang)
+        return jsonify(reply=reply)
+    except Exception as e:
+        # Print de volledige stack trace in de Flask-console
+        import traceback
+        traceback.print_exc()
+        # Stuur een leesbare foutmelding terug in JSON
+        err_msg = f"Server error tijdens chat.answer: {e!r}"
+        return jsonify(error=err_msg), 500
 
 @app.route("/")
 def root():

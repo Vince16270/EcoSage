@@ -37,7 +37,7 @@ else:
     DEVICE = device_env          
 
 # Prompt
-PROMPT_TEMPLATE = """You're an expert in European policy.
+PROMPT_TEMPLATE = """You are an expert in European energy and climate policy.
 You have access to the following context:
 {context}
 

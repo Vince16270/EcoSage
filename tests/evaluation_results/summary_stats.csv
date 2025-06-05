@@ -1,0 +1,6 @@
+metric,value
+total_questions,2
+avg_exact_match,0.000
+avg_word_overlap_ratio,0.557
+avg_bleu_score,0.045
+avg_rouge1_f1,0.201
