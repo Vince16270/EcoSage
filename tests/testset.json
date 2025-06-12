@@ -3,152 +3,332 @@
     {
       "id": 1,
       "question": "What is the European Green Deal and what are its main goals?",
-      "answer": "The European Green Deal is a comprehensive plan by the European Union to make Europe the first climate-neutral continent by 2050. Its main goals include achieving net-zero greenhouse gas emissions, decoupling economic growth from resource use, and ensuring a just and inclusive transition for all regions and citizens."
+      "answers": [
+        "The European Green Deal is the EU's master plan to make Europe climate-neutral by 2050, cutting net greenhouse-gas emissions to zero while creating green jobs and growth.",
+        "It is a roadmap covering energy, transport, industry, agriculture and finance, designed to decouple prosperity from resource consumption and pollution.",
+        "Under the Deal, every EU policy must contribute to climate neutrality, protect biodiversity and promote a circular economy, ensuring that no person or region is left behind.",
+        "A key aim is to slash emissions at least 55 % by 2030 and then reach net zero by 2050 through clean technologies, energy efficiency and sustainable land use.",
+        "The package also seeks to mobilise €1 trillion of sustainable investments and embed social fairness via the Just Transition Mechanism."
+      ]
     },
     {
       "id": 2,
       "question": "How does the 'Fit for 55' package contribute to the EU's climate targets?",
-      "answer": "The 'Fit for 55' package is a set of legislative proposals aimed at reducing the EU's net greenhouse gas emissions by at least 55% by 2030, compared to 1990 levels. It revises and updates EU legislation in areas such as emissions trading, renewable energy, energy efficiency, and transport to align with this ambitious target."
+      "answers": [
+        "‘Fit for 55’ is the EU’s 2021 legislative mega-package that revises climate and energy laws so the bloc can cut net greenhouse-gas emissions by at least 55 % by 2030 compared with 1990.",
+        "It tightens the Emissions Trading System, extends carbon pricing to maritime and road transport, and creates a Social Climate Fund to cushion vulnerable households.",
+        "The package raises the Renewable Energy Directive target, beefs up energy-efficiency rules and introduces the Carbon Border Adjustment Mechanism to avoid carbon leakage.",
+        "By upgrading everything from fuel taxation to land-use and forestry accounting, the proposals give every sector a clear 2030 trajectory compatible with a 2050 net-zero EU.",
+        "Taken together, these new and updated laws lock in a predictable carbon price and investment signal that will steer capital towards clean technologies this decade."
+      ]
     },
     {
       "id": 3,
       "question": "What are the key principles of the EU's strategy for clean energy?",
-      "answer": "The EU's clean energy strategy is based on three key principles: (1) prioritizing energy efficiency, (2) boosting the production of energy from renewable sources, and (3) ensuring a secure and affordable energy supply for all citizens. This involves modernizing infrastructure, digitalizing the energy sector, and empowering consumers."
+      "answers": [
+        "The strategy follows the ‘energy-efficiency-first’ principle, meaning the greenest energy is the energy never used.",
+        "It aims to massively scale renewables, targeting a high share of wind, solar, hydro and sustainable biomass in the electricity and heating mix.",
+        "Grid modernisation and digitalisation are central, ensuring an integrated, flexible system that can handle variable green power.",
+        "Affordability and security of supply remain core: the EU wants consumers to have reliable, competitively priced energy even during the transition.",
+        "Empowering citizens—through smart meters, prosumer schemes and demand response—is seen as essential to making the shift socially acceptable."
+      ]
     },
     {
       "id": 4,
       "question": "How can I reduce my carbon footprint at home?",
-      "answer": "You can reduce your carbon footprint at home by improving insulation, switching to a renewable energy provider, using energy-efficient appliances, reducing your heating and cooling consumption, and minimizing waste. Simple actions like turning off lights when not in use and unplugging electronics also contribute."
+      "answers": [
+        "Upgrade your insulation and windows so your heating system has to work less.",
+        "Switch to a certified green electricity tariff or install rooftop solar panels.",
+        "Choose A+++-rated appliances and run them only with full loads.",
+        "Lower your thermostat by 1-2 °C and use programmable timers to avoid heating empty rooms.",
+        "Cut waste: repair instead of replace, recycle properly and compost organic leftovers."
+      ]
     },
     {
       "id": 5,
       "question": "What are some simple ways to save energy in my daily life?",
-      "answer": "Simple ways to save energy daily include taking shorter showers, washing clothes in cold water, using a clothesline instead of a dryer, cooking with a lid on your pots, and replacing incandescent light bulbs with LEDs. These small habits can collectively lead to significant energy savings."
+      "answers": [
+        "Take shorter, cooler showers and install low-flow showerheads.",
+        "Air-dry clothes and dishes instead of using electric dryers.",
+        "Use lids on pots and match burner sizes to cookware when cooking.",
+        "Enable power-saving modes and unplug chargers once devices are topped up.",
+        "Let natural daylight in and switch to motion-sensor or LED lighting."
+      ]
     },
     {
       "id": 6,
       "question": "What is the role of renewable energy sources in the energy transition?",
-      "answer": "Renewable energy sources, such as solar, wind, hydro, and geothermal, are central to the energy transition. They produce little to no greenhouse gas emissions, reduce our reliance on fossil fuels, enhance energy security, and can create new jobs in the green technology sector."
+      "answers": [
+        "Renewables displace fossil fuels, cutting CO₂ and air pollutants.",
+        "Because wind and solar costs have fallen, they provide increasingly cheap electricity that shields consumers from volatile gas prices.",
+        "They diversify the energy mix, improving security by reducing import dependence.",
+        "Deploying renewables creates local jobs in manufacturing, installation and maintenance.",
+        "Decentralised renewables empower communities through energy cooperatives and prosumer models."
+      ]
     },
     {
       "id": 7,
       "question": "How does the European Green Deal aim to make transportation more sustainable?",
-      "answer": "The Green Deal promotes sustainable transportation by investing in public transport, cycling, and walking infrastructure. It also aims to accelerate the shift to zero-emission vehicles by setting stricter CO2 standards for cars and vans and by promoting the use of sustainable alternative fuels in aviation and shipping."
+      "answers": [
+        "EU funds rail, metro and bus projects to make public transport faster and more attractive.",
+        "It phases in stricter CO₂ limits so only zero-emission new cars and vans can be sold from 2035.",
+        "Alternative-fuels infrastructure regulation will roll out dense networks of EV chargers and hydrogen refuelling stations across Europe.",
+        "The ReFuelEU and FuelEU proposals oblige aviation and maritime sectors to blend sustainable fuels, cutting their lifecycle emissions.",
+        "Urban mobility plans encourage walking and cycling through protected bike lanes and car-free zones."
+      ]
     },
     {
       "id": 8,
       "question": "What is the 'Farm to Fork' strategy and how does it promote a sustainable food system?",
-      "answer": "The 'Farm to Fork' strategy is at the heart of the European Green Deal, aiming to make food systems fair, healthy, and environmentally-friendly. It seeks to reduce the use of pesticides and fertilizers, promote organic farming, improve animal welfare, and reduce food waste, ensuring a sustainable food chain from production to consumption."
+      "answers": [
+        "Targets a 50 % reduction in chemical pesticides and a 20 % cut in fertiliser use by 2030.",
+        "Aims to boost EU organic farming share to 25 % of agricultural land.",
+        "Sets measures to improve animal welfare, including better housing and transport standards.",
+        "Encourages shorter supply chains and fairer returns for farmers and fishers.",
+        "Seeks to halve per-capita food waste at retail and consumer levels by 2030."
+      ]
     },
     {
       "id": 9,
       "question": "How can I contribute to a circular economy?",
-      "answer": "You can contribute to a circular economy by reducing, reusing, and recycling. This means buying fewer new things, choosing products that are durable and repairable, repairing items instead of replacing them, and properly sorting your waste for recycling. Sharing, renting, and buying second-hand are also great ways to participate."
+      "answers": [
+        "Choose products with eco-design or repairability labels so they last longer.",
+        "Lease or rent items such as tools or electronics instead of owning them.",
+        "Share or swap rarely used goods within neighbourhood platforms.",
+        "Return used products to take-back schemes so materials can be recovered.",
+        "Compost organic waste to cycle nutrients back into soil."
+      ]
     },
     {
       "id": 10,
       "question": "What are the benefits of switching to an electric vehicle?",
-      "answer": "Switching to an electric vehicle (EV) reduces air pollution as EVs have zero tailpipe emissions. They also have a lower carbon footprint, especially when charged with renewable energy. Additionally, EVs can have lower running costs due to cheaper electricity compared to petrol or diesel and require less maintenance."
+      "answers": [
+        "EVs emit no tailpipe NOx or PM, improving urban air quality.",
+        "When powered with renewables, their lifetime CO₂ impact can be 70–90 % lower than a comparable diesel.",
+        "Electric motors have fewer moving parts, so maintenance costs—oil changes, exhaust repairs—are minimal.",
+        "Regenerative braking saves brake wear and recoups energy, extending range.",
+        "Many countries offer incentives such as purchase rebates, tax exemptions and cheap parking for EV drivers."
+      ]
     },
     {
       "id": 11,
       "question": "How can I make my home more energy-efficient?",
-      "answer": "You can make your home more energy-efficient by adding insulation to your walls, roof, and floors, and by installing double or triple-glazed windows. Sealing drafts around doors and windows, and using a smart thermostat to control your heating can also significantly reduce your energy consumption."
+      "answers": [
+        "Install attic, cavity-wall and floor insulation to prevent heat loss.",
+        "Fit high-performance double or triple glazing with low-emissivity coatings.",
+        "Seal gaps around doors, windows and pipe penetrations using weather-stripping and caulk.",
+        "Install a smart thermostat and zone controls to heat only occupied spaces.",
+        "Consider on-site renewables such as heat pumps or solar-thermal panels for hot water."
+      ]
     },
     {
       "id": 12,
       "question": "What are some examples of sustainable living practices I can adopt?",
-      "answer": "Sustainable living practices include reducing your consumption of meat and dairy, buying local and seasonal produce, avoiding single-use plastics, conserving water, and choosing sustainable transportation methods like walking, cycling, or public transport. Supporting ethical and sustainable brands is another important aspect."
+      "answers": [
+        "Adopt a plant-forward diet, limiting red meat and dairy consumption.",
+        "Carry a reusable water bottle, coffee cup and cutlery to avoid single-use plastics.",
+        "Buy second-hand goods, repair broken items and upcycle furniture.",
+        "Collect rainwater for gardening and install low-flow taps.",
+        "Use renewable tariffs and switch off standby power to cut household emissions."
+      ]
     },
     {
       "id": 13,
       "question": "What is the importance of biodiversity and how does the EU plan to protect it?",
-      "answer": "Biodiversity, the variety of life on Earth, is crucial for healthy ecosystems, which provide us with clean air, water, food, and medicine. The EU's Biodiversity Strategy for 2030 aims to protect and restore nature through measures like expanding protected areas, restoring degraded ecosystems, and promoting biodiversity-friendly agriculture and forestry."
+      "answers": [
+        "Biodiversity underpins ecosystem services such as pollination, soil fertility and flood control.",
+        "The EU plans to legally protect 30 % of land and sea areas by 2030.",
+        "Restoration targets will revive 25 000 km of free-flowing rivers and plant 3 billion trees.",
+        "The strategy tightens rules against illegal logging and imports that cause deforestation abroad.",
+        "Agro-ecological practices and nature-based solutions are promoted to integrate biodiversity into farming."
+      ]
     },
     {
       "id": 14,
       "question": "How can I reduce my plastic waste?",
-      "answer": "You can reduce your plastic waste by using reusable shopping bags, water bottles, and coffee cups. Opt for products with minimal or no plastic packaging, buy in bulk where possible, and avoid single-use plastics like straws and cutlery. Proper recycling of the plastic you do use is also essential."
+      "answers": [
+        "Opt for refill shops where you bring your own containers for dry goods and liquids.",
+        "Buy toiletries like shampoo bars instead of bottled products.",
+        "Use beeswax wraps or reusable silicone covers instead of cling film.",
+        "Choose glass, metal or paper packaging over plastic when shopping.",
+        "Participate in local clean-up events and lobby for deposit-return systems."
+      ]
     },
     {
       "id": 15,
       "question": "What is the Just Transition Mechanism and who does it support?",
-      "answer": "The Just Transition Mechanism is a key tool of the European Green Deal designed to ensure that the transition to a climate-neutral economy happens in a fair way, leaving no one behind. It provides targeted financial and technical support to regions, industries, and workers most affected by the transition, for example, those dependent on coal mining."
+      "answers": [
+        "It channels grants, loans and guarantees to coal and carbon-intensive regions so they can diversify their economies.",
+        "Workers receive up-skilling and re-skilling programmes funded through the mechanism.",
+        "A dedicated Just Transition Fund of over €19 billion (2021-27) supports green projects and SMEs.",
+        "The Public Sector Loan Facility offers concessional finance for clean infrastructure in affected areas.",
+        "Technical assistance helps local authorities design transition plans and leverage private investment."
+      ]
     },
     {
       "id": 16,
       "question": "How does the EU promote the use of renewable hydrogen?",
-      "answer": "The EU is promoting renewable hydrogen as a key clean energy carrier for hard-to-decarbonize sectors like heavy industry and transport. The EU's hydrogen strategy aims to support the production of renewable hydrogen, develop the necessary infrastructure, and create a market for its use through investment, regulation, and research."
+      "answers": [
+        "The EU aims for 10 Mt of domestic renewable hydrogen production and 10 Mt of imports by 2030.",
+        "It funds electrolysers through the Important Projects of Common European Interest (IPCEI) scheme.",
+        "Guarantee-of-origin certificates will prove the green credentials of hydrogen to buyers.",
+        "The TEN-E revision supports dedicated hydrogen pipelines and storage projects.",
+        "State-aid rules have been relaxed so governments can subsidise early hydrogen value chains."
+      ]
     },
     {
       "id": 17,
       "question": "What are the goals of the EU's Circular Economy Action Plan?",
-      "answer": "The EU's Circular Economy Action Plan aims to make our economy more sustainable by promoting the design of products that last longer, are easier to repair, reuse, and recycle. Key goals include reducing waste, empowering consumers with more information, and ensuring that the resources used are kept in the economy for as long as possible."
+      "answers": [
+        "Introduce product passports so materials can be traced and recycled.",
+        "Set right-to-repair requirements for electronics and furniture.",
+        "Limit single-use packaging and require recycled content in plastics.",
+        "Encourage business models based on reuse, remanufacturing and sharing.",
+        "Strengthen EU waste-export rules so valuable materials are processed inside Europe."
+      ]
     },
     {
       "id": 18,
       "question": "How can I make more sustainable choices when I shop for food?",
-      "answer": "When shopping for food, you can make more sustainable choices by buying local and seasonal products to reduce food miles. Choose products with eco-labels, such as organic or fair trade, and reduce your consumption of meat and dairy, which have a high environmental impact. Planning your meals to avoid food waste is also crucial."
+      "answers": [
+        "Check the country-of-origin label and pick produce grown nearby to cut transport emissions.",
+        "Choose organic or integrated-pest-management products verified by the EU leaf logo.",
+        "Bring your own bags and containers to avoid plastic packaging.",
+        "Prefer loose fruit and vegetables and buy only what you can eat before it spoils.",
+        "Support farmers’ markets or Community Supported Agriculture schemes for seasonal food."
+      ]
     },
     {
       "id": 19,
       "question": "What is the energy performance of buildings directive and how does it affect me?",
-      "answer": "The Energy Performance of Buildings Directive (EPBD) is an EU law that aims to improve the energy efficiency of buildings. For citizens, this means that when you buy or rent a property, you must be shown an Energy Performance Certificate (EPC) that rates the building's energy efficiency. The directive also encourages renovations to improve the energy performance of existing buildings."
+      "answers": [
+        "You must receive an Energy Performance Certificate (EPC) when buying, selling or renting a property.",
+        "Member states have to set minimum energy-performance standards for the worst-performing buildings.",
+        "All new buildings must be zero-emission from 2030 (2028 for public buildings).",
+        "Building-renovation passports will guide owners through staged upgrades to higher efficiency levels.",
+        "Renovations must include EV-charging readiness and, where feasible, on-site renewables."
+      ]
     },
     {
       "id": 20,
       "question": "How can I participate in the green transition in my local community?",
-      "answer": "You can participate in the green transition in your community by joining or starting local initiatives like community gardens, repair cafes, or local energy cooperatives. You can also advocate for more green spaces, better cycling infrastructure, and improved public transport in your area by engaging with your local council."
+      "answers": [
+        "Join a community energy cooperative to invest in shared solar or wind projects.",
+        "Volunteer for tree-planting or river-clean-up days organised by local NGOs.",
+        "Set up a repair café where neighbours can fix electronics and clothes.",
+        "Advocate for safe cycling lanes at municipal council meetings.",
+        "Start a neighbourhood compost scheme to collect food scraps and produce soil."
+      ]
     },
     {
       "id": 21,
       "question": "What are the environmental impacts of fast fashion and how can I avoid it?",
-      "answer": "Fast fashion contributes to significant water pollution, greenhouse gas emissions, and waste, with many garments ending up in landfills after only a few wears. You can avoid fast fashion by buying fewer, higher-quality clothes that will last longer, shopping second-hand, repairing your clothes, and supporting sustainable and ethical fashion brands."
+      "answers": [
+        "Fast fashion uses large volumes of water for dyeing, polluting rivers with toxic chemicals.",
+        "Cheap synthetic garments shed micro-plastics during washing, contaminating oceans.",
+        "Rapid turnover encourages over-consumption, creating 92 million tonnes of textile waste each year.",
+        "Buying timeless, quality pieces and mending clothes extends their lifespan and reduces demand for new fibres.",
+        "Choosing certified organic cotton or recycled fabrics supports more sustainable production."
+      ]
     },
     {
       "id": 22,
       "question": "How does the EU's emissions trading system (ETS) work?",
-      "answer": "The EU's Emissions Trading System (ETS) is a 'cap and trade' system. It sets a cap on the total amount of greenhouse gases that can be emitted by industrial installations covered by the system. Companies receive or buy emission allowances, which they can trade. This creates a price for carbon and incentivizes companies to reduce their emissions in a cost-effective way."
+      "answers": [
+        "A cap limits overall emissions from power plants, factories and intra-EU flights.",
+        "Allowances (EUAs) are auctioned or allocated; companies that emit less can sell surplus to others.",
+        "The cap declines annually, ensuring emissions fall over time.",
+        "A Market Stability Reserve removes excess allowances to keep the carbon price resilient.",
+        "A separate ETS2 will price carbon in buildings and road transport fuels from 2027."
+      ]
     },
     {
       "id": 23,
       "question": "What are some tips for sustainable travel?",
-      "answer": "For more sustainable travel, consider choosing destinations that are accessible by train or bus instead of flying. If you do fly, choose direct flights and consider offsetting your carbon emissions. While traveling, respect the local environment and culture, support local businesses, and try to minimize your waste."
+      "answers": [
+        "Choose rail over short-haul flights; Europe’s expanding night-train network often substitutes domestic air routes.",
+        "Pack light to cut aircraft fuel burn and save baggage fees.",
+        "Stay in eco-labelled accommodation that follows energy-saving and waste-reduction practices.",
+        "Respect fragile ecosystems by sticking to marked trails and avoiding single-use plastics on excursions.",
+        "Offset unavoidable emissions through certified carbon-reduction projects."
+      ]
     },
     {
       "id": 24,
       "question": "How does the European Green Deal address air and water pollution?",
-      "answer": "The European Green Deal has a zero-pollution ambition for a toxic-free environment. It aims to reduce air and water pollution by revising EU standards to align with the World Health Organization's recommendations, improving water quality monitoring, and promoting cleaner industrial processes and agricultural practices."
+      "answers": [
+        "Revises Ambient Air Quality Directives to align EU limits with WHO guidelines.",
+        "Introduces a Zero Pollution Action Plan aiming to cut premature deaths from air pollution by 55 % by 2030.",
+        "Strengthens urban wastewater rules to capture micro-pollutants and micro-plastics.",
+        "Promotes precision farming and nutrient-management plans to reduce agricultural runoff.",
+        "Invests in industrial decarbonisation to slash emissions of SO₂, NOx and heavy metals."
+      ]
     },
     {
       "id": 25,
       "question": "What is the role of citizens in achieving the goals of the Green Deal?",
-      "answer": "Citizens play a crucial role in the Green Deal. Through our daily choices in how we consume, travel, and heat our homes, we can collectively drive the transition to a greener society. Engaging in public consultations, supporting green initiatives, and holding policymakers accountable are also vital actions for citizens."
+      "answers": [
+        "Consumers drive demand for sustainable products, nudging companies to green their supply chains.",
+        "Voting in local, national and EU elections helps choose leaders committed to climate action.",
+        "Public-consultation feedback shapes EU regulations and funding priorities.",
+        "Participating in citizen assemblies or climate pacts spreads best practices and peer learning.",
+        "Grassroots activism, from school strikes to community energy projects, keeps pressure on policymakers."
+      ]
     },
     {
       "id": 26,
       "question": "How can I compost my food waste at home?",
-      "answer": "You can compost food waste at home using a compost bin in your garden or a wormery on a balcony. You'll need a mix of 'green' materials like fruit and vegetable scraps, and 'brown' materials like cardboard and dry leaves. Regularly turning the compost will help it break down into a nutrient-rich fertilizer for your plants."
+      "answers": [
+        "Use a ventilated compost tumbler to speed up decomposition while keeping pests out.",
+        "Layer green (nitrogen-rich) and brown (carbon-rich) materials in roughly equal parts for optimal balance.",
+        "Maintain moisture like a wrung-out sponge and turn the pile weekly for aeration.",
+        "Avoid composting meat, dairy and cooked foods in an open pile to deter rodents.",
+        "Finished compost can be sieved and used as a soil conditioner for pots and garden beds."
+      ]
     },
     {
       "id": 27,
       "question": "What are the advantages of a plant-based diet for the environment?",
-      "answer": "A plant-based diet has a significantly lower environmental impact than a diet rich in meat and dairy. Livestock farming is a major source of greenhouse gas emissions, deforestation, and water use. By eating more plants, you can reduce your carbon footprint and help to protect natural habitats."
+      "answers": [
+        "Cuts methane emissions from livestock digestion and manure.",
+        "Reduces pressure on pasture and feed crops, slowing deforestation.",
+        "Needs far less freshwater than beef production—for example, pulses versus cattle.",
+        "Plant foods are generally more land-efficient, producing more calories and protein per hectare.",
+        "Encourages dietary diversity, improving health outcomes while benefiting the planet."
+      ]
     },
     {
       "id": 28,
       "question": "What is the EU's strategy for sustainable and smart mobility?",
-      "answer": "The EU's strategy for sustainable and smart mobility aims to make all modes of transport more sustainable, with a focus on digitalization and innovation. Key goals include making zero-emission vehicles the norm, making sustainable travel options more affordable and accessible, and improving the efficiency of transport and freight."
+      "answers": [
+        "Targets a 90 % cut in transport emissions by 2050.",
+        "Plans to double high-speed rail traffic by 2030 and triple it by 2050.",
+        "Proposes zero-emission urban logistics and carbon-neutral airports and ports.",
+        "Digital traffic management and multimodal ticketing apps will make journeys smoother.",
+        "Promotes automation and connectivity to improve safety and energy efficiency."
+      ]
     },
     {
       "id": 29,
       "question": "How can I invest my money in a sustainable way?",
-      "answer": "You can invest sustainably by choosing investment funds that focus on companies with strong environmental, social, and governance (ESG) performance. Look for funds that invest in renewable energy, clean technology, and other green sectors. You can also invest in green bonds, which raise capital for environmental projects."
+      "answers": [
+        "Select funds labelled “Article 9” under the EU Sustainable Finance Disclosure Regulation.",
+        "Invest in green bonds whose proceeds are earmarked for climate-friendly projects.",
+        "Use robo-advisers that offer ESG-screened portfolios aligned with your risk profile.",
+        "Avoid companies involved in coal, tar sands or controversial weapons via negative screening.",
+        "Engage in shareholder voting to push firms toward net-zero commitments."
+      ]
     },
     {
       "id": 30,
       "question": "What are the long-term benefits of the energy transition for Europe?",
-      "answer": "The long-term benefits of the energy transition for Europe include increased energy security and independence from fossil fuel imports, cleaner air and improved public health, the creation of green jobs in new industries, and technological leadership in renewable energy and clean technologies. Ultimately, it will lead to a more resilient and sustainable economy."
+      "answers": [
+        "Lower fossil-fuel imports save the EU tens of billions of euros annually.",
+        "Cleaner air reduces health costs and increases worker productivity.",
+        "Europe becomes a leading exporter of clean-tech patents and equipment.",
+        "Distributed renewables and storage enhance grid resilience against extreme weather.",
+        "A stable carbon price and innovation agenda attract private investment and create quality green jobs."
+      ]
     }
   ]
 }

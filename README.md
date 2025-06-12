@@ -142,10 +142,11 @@ Make sure you have a `testset.json` in the `tests/` folder, structured as follow
       "question": "How can I reduce my carbon footprint at home?",
       "answer": "You can reduce your carbon footprint by improving home insulation, using energy-efficient appliances, switching to LED lighting, reducing meat consumption, and choosing public transport or an electric vehicle."
     }
-    // … more question with answers, in total we have 30 questions …
   ]
 }
 ```
+
+There are more question with answers, in total we have 30 questions. 
 
 ### 2. End-to-End Evaluation Script
 
