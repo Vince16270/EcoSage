@@ -1,304 +1,641 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <title>EcoSage Chat</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
   <style>
-    :root{
-      --bg-primary:#0a0a0a;
-      --bg-secondary:#1a1a1a;
-      --text-primary:#ffffff;
-      --text-secondary:#a0a0a0;
-      --accent:#10a37f;
-      --accent-hover:#0d8c6d;
-      --border:#2a2a2a;
-      --radius:12px;
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --accent: #10a37f;
+      --accent-hover: #0d8c6d;
+      --border: #2a2a2a;
+      --radius: 12px;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-
-    html,body{
-      height:100%;
-      font-family:"Inter",system-ui,sans-serif;
-      background:var(--bg-primary);color:var(--text-primary);
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f3f4f6;
+      --text-primary: #111827;
+      --text-secondary: #555555;
+      --border: #d1d5db;
     }
-    body{display:flex}
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html,body { height:100%; font-family:"Inter",system-ui,sans-serif; background:var(--bg-primary); color:var(--text-primary); }
+    body { display:flex; }
 
-    /* ── Sidebar ── */
-    #sidebar{
-      position:fixed;left:-280px;top:0;height:100%;width:280px;
-      background:var(--bg-secondary);border-right:1px solid var(--border);
-      display:flex;flex-direction:column;padding:24px 16px;transition:left .3s ease;z-index:200;
+    /* Left Sidebar */
+    #sidebar {
+      position:fixed; top:0; left:-280px;
+      width:280px; height:100%;
+      background:var(--bg-secondary);
+      border-right:1px solid var(--border);
+      display:flex; flex-direction:column;
+      padding:24px 16px; transition:left .3s ease; z-index:200;
     }
-    #sidebar.open{left:0}
-    .session{padding:12px;border-radius:var(--radius);background:rgba(255,255,255,.05);
-      margin-bottom:8px;font-size:.9rem;cursor:pointer;color:var(--text-secondary);transition:background .2s}
-    .session:hover{background:rgba(255,255,255,.1)}
-    .btn{border:none;border-radius:var(--radius);padding:10px 16px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s}
-    #newBtn{background:var(--accent);color:#fff;margin-bottom:20px}
-    #newBtn:hover{background:var(--accent-hover)}
-    #clearHist{background:transparent;color:var(--text-secondary);border:1px solid var(--border);margin-top:auto}
-    #clearHist:hover{background:rgba(255,255,255,.05)}
+    #sidebar.open { left:0; }
+    #histTitle {
+      margin-bottom:24px;
+      font-size:1.5rem;
+      font-weight:600;
+      color:var(--text-primary);
+    }
+    .session {
+      padding:12px; border-radius:var(--radius);
+      background:rgba(255,255,255,.05);
+      margin-bottom:8px; font-size:.9rem;
+      color:var(--text-secondary); cursor:pointer;
+      transition:background .2s;
+    }
+    .session:hover { background:rgba(255,255,255,.1); }
+    .btn {
+      border:none; border-radius:var(--radius);
+      padding:10px 16px; font-weight:500;
+      background:var(--accent); color:#fff;
+      cursor:pointer; font-family:inherit;
+      transition:background .2s;
+    }
+    #newBtn { margin-bottom:20px; }
+    #newBtn:hover { background:var(--accent-hover); }
+    #clearHist {
+      background:transparent; color:var(--text-secondary);
+      border:1px solid var(--border); margin-top:auto;
+    }
+    #clearHist:hover { background:rgba(255,255,255,.05); }
 
-    /* ── Chat wrapper ── */
-    .chat-wrapper{flex:1;height:100%;display:flex;flex-direction:column;overflow:hidden;transition:margin-left .3s ease}
-    #sidebar.open ~ .chat-wrapper{margin-left:280px}
+    /* Main Wrapper */
+    .chat-wrapper {
+      flex:1; display:flex; flex-direction:column;
+      overflow:hidden; transition:margin-left .3s ease;
+    }
+    #sidebar.open ~ .chat-wrapper { margin-left:280px; }
 
     /* Header */
-    .header{height:70px;background:var(--bg-secondary);border-bottom:1px solid var(--border);
-      display:flex;align-items:center;padding:0 24px;position:relative}
-    #toggle{width:40px;height:40px;background:none;border:none;cursor:pointer;margin-right:18px;
-      display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1001}
-    #toggle span{width:28px;height:4px;background:#fff;margin:3px 0;border-radius:2px;transition:background .2s}
-    #toggle:hover span{background:var(--accent)}
-    .header h1{font-size:1.25rem;font-weight:600;flex:1}
-    .header-right{position:absolute;right:24px;top:0;height:100%;display:flex;align-items:center;gap:18px}
-    .logo{width:38px;height:38px;object-fit:contain}
-    .lang-toggle{background:var(--bg-primary);border-radius:var(--radius);padding:4px;display:flex;gap:2px;border:1px solid var(--border)}
-    .lang-btn{border:none;border-radius:6px;padding:6px 16px;font-size:.85rem;font-weight:500;cursor:pointer;background:none;color:var(--text-secondary);transition:all .2s}
-    .lang-btn.active{background:var(--accent);color:#fff}
-    .lang-btn:hover:not(.active){background:rgba(255,255,255,.05)}
-    @media(max-width:600px){.logo{width:28px;height:28px}.header-right{right:8px;gap:8px}}
+    .header {
+      height:70px; background:var(--bg-secondary);
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center;
+      padding:0 24px; position:relative;
+    }
+    #toggle {
+      width:40px; height:40px; border:none; background:none;
+      cursor:pointer; margin-right:18px;
+      display:flex; flex-direction:column;
+      justify-content:center; align-items:center;
+      transition:transform .3s;
+    }
+    #toggle.open { transform:rotate(90deg); }
+    #toggle span {
+      width:28px; height:4px; background:#fff;
+      margin:3px 0; border-radius:2px;
+      transition:background .2s;
+    }
+    #toggle:hover span { background:var(--accent); }
+    .header h1 { flex:1; font-size:1.25rem; font-weight:600; }
+    .header-right { display:flex; align-items:center; gap:18px; position:relative; }
+
+    /* Language Toggle */
+    .lang-toggle {
+      position:relative;
+      background:var(--bg-secondary);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      display:flex; overflow:hidden; width:100px;
+    }
+    .lang-slider {
+      position:absolute;
+      top:2px; bottom:2px; left:2px;
+      width:calc(50% - 4px);
+      background:var(--accent);
+      border-radius:var(--radius);
+      transition:left .3s;
+    }
+    .lang-btn {
+      flex:1; padding:6px 0;
+      background:none; border:none;
+      cursor:pointer;
+      font-size:.85rem; font-weight:500;
+      color:var(--text-secondary);
+      z-index:1; transition:color .2s;
+    }
+    .lang-btn.active { color:#fff; }
+    .lang-btn:hover:not(.active) { color:#fff; }
+
+    /* Logo */
+    .logo-btn {
+      background:none; border:none; cursor:pointer;
+      padding:4px; border-radius:var(--radius);
+      transition:background .2s;
+    }
+    .logo-btn:hover { background:rgba(255,255,255,.05); }
+    .logo { width:38px; height:38px; object-fit:contain; }
 
     /* Hero */
-    .hero{text-align:center;padding:80px 24px 40px;max-width:800px;margin:0 auto}
-    .hero h2{font-size:2rem;font-weight:700;margin-bottom:16px;
-      background:linear-gradient(270deg,#10a37f,#00b4d8,#10a37f,#00b4d8);background-size:400% 400%;
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:grad 8s ease-in-out infinite}
-    @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    .hero p{font-size:1.1rem;color:var(--text-secondary);line-height:1.6}
+    .hero {
+      text-align:center;
+      padding:80px 24px 40px;
+      max-width:800px; margin:0 auto;
+    }
+    .hero h2 {
+      font-size:2rem; font-weight:700; margin-bottom:16px;
+      background:linear-gradient(270deg,#10a37f,#00b4d8,#10a37f,#00b4d8);
+      background-size:400% 400%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:grad 8s ease-in-out infinite;
+    }
+    @keyframes grad { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
+    .hero p { font-size:1.1rem; color:var(--text-secondary); line-height:1.6; }
 
     /* Suggestions */
-    .suggestions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:0 24px 40px;max-width:800px;margin:0 auto;transition:opacity .3s,transform .3s}
-    .suggestions.fade{opacity:0;transform:translateY(12px)}
-    .suggestions button{border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-secondary);
-      border-radius:var(--radius);padding:10px 16px;font-size:.9rem;cursor:pointer;transition:all .2s}
-    .suggestions button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .suggestions {
+      display:flex; flex-wrap:wrap; gap:12px;
+      justify-content:center;
+      padding:0 24px 40px;
+      max-width:800px; margin:0 auto;
+      transition:opacity .3s,transform .3s;
+    }
+    .suggestions.fade { opacity:0; transform:translateY(12px); }
+    .suggestions button {
+      border:1px solid var(--border);
+      background:var(--bg-secondary);
+      color:var(--text-secondary);
+      border-radius:var(--radius);
+      padding:10px 16px;
+      font-size:.9rem;
+      cursor:pointer;
+      transition:background .2s,transform .2s;
+    }
+    .suggestions button:hover {
+      background:var(--accent);
+      color:#fff;
+      transform:translateY(-2px);
+    }
 
     /* Chat log */
-    #chatlog{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:24px;font-size:.95rem;width:100%}
-
-    .bubble{
-      display:inline-block;
-      /* auto breedte: browser berekent op basis van inhoud */
-      width:-moz-fit-content;width:fit-content;
-      max-width:90%;      /* lange berichten breken alsnog af */
-      padding:16px 20px;border-radius:var(--radius);
-      line-height:1.5;opacity:0;transform:translateY(18px);
+    #chatlog {
+      flex:1; overflow-y:auto;
+      padding:24px;
+      display:flex; flex-direction:column;
+      gap:24px; font-size:.95rem; width:100%;
+    }
+    .bubble {
+      display:inline-block; max-width:90%;
+      padding:16px 20px; border-radius:var(--radius);
+      line-height:1.5; opacity:0; transform:translateY(18px);
       box-shadow:0 4px 12px rgba(0,0,0,.15);
       word-wrap:break-word;
     }
-    .bubble.in{animation:fadeSlide .4s forwards}
-    @keyframes fadeSlide{to{opacity:1;transform:none}}
+    .bubble.in { animation:fadeSlide .3s forwards; }
+    @keyframes fadeSlide { to{opacity:1;transform:none} }
+    .user { background:var(--accent); color:#fff; margin-left:auto; }
+    .bot  { background:var(--bg-secondary); color:var(--text-primary); margin-right:auto; }
 
-    .user{background:var(--accent);color:#fff;margin-left:auto;transform:translate(30px,18px)}
-    .user.in{animation:slideR .4s forwards}
-    @keyframes slideR{to{opacity:1;transform:none}}
-
-    .bot{background:var(--bg-secondary);color:var(--text-primary);margin-right:auto;transform:translate(-30px,18px)}
-    .bot.in{animation:slideL .4s forwards}
-    @keyframes slideL{to{opacity:1;transform:none}}
-
-    /* Typing indicator */
-    .typing span{width:6px;height:6px;border-radius:50%;background:var(--text-secondary);display:inline-block;margin-right:4px;animation:pulse 1s infinite}
-    .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
-    @keyframes pulse{0%,80%,100%{opacity:.3}40%{opacity:1}}
+    /* Typing */
+    .typing span {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--text-secondary);
+      display:inline-block; margin-right:4px;
+      animation:pulse 1s infinite;
+    }
+    @keyframes pulse { 0%,80%,100%{opacity:.3}40%{opacity:1} }
 
     /* Input */
-    form{display:flex;gap:12px;padding:24px;background:var(--bg-secondary);border-top:1px solid var(--border)}
-    input{flex:1;padding:14px 20px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-primary);color:var(--text-primary);font-size:.95rem;transition:border-color .2s}
-    input:focus{outline:none;border-color:var(--accent)}
-    form button{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:14px 24px;font-size:.95rem;cursor:pointer;transition:background .2s}
-    form button:hover{background:var(--accent-hover)}
+    form {
+      display:flex; gap:12px;
+      padding:24px;
+      background:var(--bg-secondary);
+      border-top:1px solid var(--border);
+    }
+    input {
+      flex:1; padding:14px 20px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--bg-primary);
+      color:var(--text-primary);
+      font-size:.95rem;
+      transition:border-color .2s;
+    }
+    input:focus { outline:none; border-color:var(--accent); }
+    form button {
+      background:var(--accent); color:#fff;
+      border:none; border-radius:var(--radius);
+      padding:14px 24px; font-size:.95rem;
+      cursor:pointer; transition:background .2s;
+    }
+    form button:hover { background:var(--accent-hover); }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-primary)}
-    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:var(--text-secondary)}
+    /* Right Panel */
+    #rightPanel {
+      position:fixed; top:0; right:-300px;
+      width:300px; height:100%;
+      background:var(--bg-secondary);
+      border-left:1px solid var(--border);
+      padding:24px;
+      transition:right .3s ease;
+      z-index:250;
+      display:flex; flex-direction:column;
+    }
+    #rightPanel.open { right:0; }
+    .panel-header {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:16px;
+    }
+    .panel-header h2 { margin:0; font-size:1.1rem; }
+    .panel-close {
+      background:none; border:none;
+      color:var(--text-secondary); font-size:1.5rem;
+      cursor:pointer; transition:color .2s;
+    }
+    .panel-close:hover { color:var(--text-primary); }
+    .panel-tabs { display:flex; margin-bottom:16px; }
+    .panel-tab {
+      flex:1; text-align:center; padding:8px 0;
+      cursor:pointer; border-bottom:2px solid transparent;
+      transition:border-color .2s,color .2s;
+      color:var(--text-secondary);
+    }
+    .panel-tab.active { border-color:var(--accent); color:var(--accent); }
+    .panel-content { flex:1; overflow-y:auto; }
+    .about-list { padding-left:1.2rem; color:var(--text-secondary); list-style:disc; margin-bottom:1rem; }
 
-    /* Test-animatie */
-    .bubble.test-anim{background:linear-gradient(135deg,#10a37f,#00b4d8,#10a37f);background-size:400% 400%;
-      animation:grad 4s linear infinite,fadeSlide .4s forwards;color:#fff}
+    /* Theme toggle (slider) */
+    .theme-toggle {
+      position:relative;
+      background:var(--bg-secondary);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      display:flex; overflow:hidden;
+      width:100%; max-width:200px;
+      margin-top:8px;
+    }
+    .theme-slider {
+      position:absolute; top:2px; bottom:2px; left:2px;
+      width:calc(50% - 4px);
+      background:var(--accent);
+      border-radius:var(--radius);
+      transition:left .3s;
+    }
+    .theme-btn {
+      flex:1; padding:6px 0;
+      background:none; border:none;
+      cursor:pointer; font-size:.9rem; font-weight:500;
+      color:var(--text-secondary);
+      z-index:1; transition:color .2s;
+    }
+    .theme-btn.active { color:#fff; }
+    .theme-btn:hover:not(.active) { color:#fff; }
   </style>
 </head>
 <body>
 
-<!-- Sidebar -->
-<div id="sidebar">
-  <h2 id="histTitle">History</h2>
-  <button id="newBtn" class="btn">New Chat</button>
-  <div id="histList" style="flex:1;overflow-y:auto"></div>
-  <button id="clearHist" class="btn">Clear History</button>
-</div>
-
-<!-- Chat -->
-<div class="chat-wrapper">
-  <div class="header">
-    <button id="toggle"><span></span><span></span><span></span></button>
-    <h1>EcoSage Chat</h1>
-    <div class="header-right">
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="nl">NL</button>
-      </div>
-      <img src="logo.png" class="logo" alt="logo">
-    </div>
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <h2 id="histTitle">History</h2>
+    <button id="newBtn" class="btn">New Chat</button>
+    <div id="histList" style="flex:1;overflow-y:auto"></div>
+    <button id="clearHist" class="btn">Clear History</button>
   </div>
 
-  <section id="hero" class="hero">
-    <h2>What can I help with?</h2>
-    <p>Ask anything about European energy &amp; climate policy.</p>
-  </section>
+  <!-- Chat wrapper -->
+  <div class="chat-wrapper">
+    <div class="header">
+      <button id="toggle"><span></span><span></span><span></span></button>
+      <h1>EcoSage Chat</h1>
+      <div class="header-right">
+        <div class="lang-toggle">
+          <div id="langSlider" class="lang-slider"></div>
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="nl">NL</button>
+        </div>
+        <button id="logoBtn" class="logo-btn" aria-label="Open menu">
+          <img src="logo.png" class="logo" alt="logo">
+        </button>
+      </div>
+    </div>
 
-  <div id="suggestions" class="suggestions"></div>
-  <div id="chatlog"></div>
+    <section id="hero" class="hero">
+      <h2>What can I help with?</h2>
+      <p>Ask anything about European energy &amp; climate policy.</p>
+    </section>
 
-  <form id="chat-form" autocomplete="off">
-    <input id="userInput" placeholder="Type your question…" required>
-    <button id="sendBtn" type="submit">Send</button>
-  </form>
-</div>
+    <div id="suggestions" class="suggestions"></div>
+    <div id="chatlog"></div>
 
-<script>
-/* ── Text resources ── */
-const TEXT={
-  en:{heroH2:"What can I help with?",heroP:"Ask anything about European energy & climate policy.",
-      ph:"Type your question…",send:"Send",hist:"History",newChat:"New Chat",clear:"Clear History",noSess:"No sessions",
-      ex:["Explain the EU Green Deal","Key points of Fit-for-55","Latest ETS regulations","Subsidies for solar panels",
-          "Impact of REPowerEU","What is the Just Transition Fund?","How does the CBAM work?","EU targets for renewable energy",
-          "Funding opportunities for hydrogen","Timeline of the Energy Efficiency Directive","Role of carbon pricing in aviation",
-          "Status of offshore wind in Europe","Difference between RED II and RED III","Criticism of EU taxonomy rules",
-          "Future of nuclear in EU climate policy"]},
-  nl:{heroH2:"Waar kan ik je mee helpen?",heroP:"Stel al je vragen over Europees energie- & klimaatbeleid.",
-      ph:"Typ je vraag…",send:"Versturen",hist:"Geschiedenis",newChat:"Nieuw gesprek",clear:"Geschiedenis wissen",noSess:"Geen sessies",
-      ex:["Leg de Europese Green Deal uit","Belangrijkste punten van Fit-for-55","Laatste ETS-regels","Subsidies voor zonnepanelen",
-          "Impact van REPowerEU","Wat is het Just Transition Fund?","Hoe werkt de CBAM?","EU-doelen voor hernieuwbare energie",
-          "Financiering voor waterstof","Tijdlijn van de Energie-efficiëntierichtlijn","Rol van koolstofbeprijzing in de luchtvaart",
-          "Stand van offshore-wind in Europa","Verschil tussen RED II en RED III","Kritiek op EU-taxonomieregels",
-          "Toekomst van kernenergie in het EU-klimaatbeleid"]}
-};
+    <form id="chat-form" autocomplete="off">
+      <input id="userInput" placeholder="Type your question…" required>
+      <button id="sendBtn" type="submit">Send</button>
+    </form>
+  </div>
 
-const $=id=>document.getElementById(id),LS="ecoHist";
-const sidebar=$("sidebar"),toggle=$("toggle"),chat=$("chatlog"),hero=$("hero"),sugg=$("suggestions"),
-      inp=$("userInput"),form=$("chat-form"),sendBtn=$("sendBtn"),
-      newBtn=$("newBtn"),clearBtn=$("clearHist"),histTitle=$("histTitle"),hist=$("histList"),
-      langButtons=document.querySelectorAll(".lang-btn");
+  <!-- Right-side Panel -->
+  <div id="rightPanel">
+    <div class="panel-header">
+      <h2 id="panelTitle">Settings</h2>
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+    </div>
+    <div class="panel-tabs">
+      <div class="panel-tab active" data-tab="settings">Settings</div>
+      <div class="panel-tab" data-tab="about">About</div>
+    </div>
+    <div class="panel-content" id="panelContent"></div>
+  </div>
 
-let lang="en",buf=[];
+  <script>
+    // Apply saved theme
+    const savedTheme = localStorage.getItem('ecoTheme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
-/* ── Language toggle ── */
-langButtons.forEach(btn=>btn.onclick=()=>{
-  langButtons.forEach(b=>b.classList.toggle("active",b===btn));
-  lang=btn.dataset.lang;refreshUI();
-});
+    /* Text resources */
+    const TEXT = {
+      en: {
+        heroH2: "What can I help with?",
+        heroP: "Ask anything about European energy & climate policy.",
+        ph: "Type your question…",
+        send: "Send",
+        hist: "History",
+        newChat: "New Chat",
+        clear: "Clear History",
+        noSess: "No sessions",
+        ex: [
+          "Explain the EU Green Deal",
+          "Key points of Fit-for-55",
+          "Latest ETS regulations",
+          "Subsidies for solar panels",
+          "Impact of REPowerEU"
+        ],
+        panel: {
+          settingsTitle: "Settings",
+          aboutTitle: "About",
+          theme: "Theme",
+          dark: "Dark",
+          light: "Light",
+          aboutIntro: "EcoSage Chat helps you explore European energy & climate policy.",
+          aboutHow:
+            "• Type your question and press Send or Enter.\n" +
+            "• Click a suggestion to autofill a query.\n" +
+            "• History stores your last 20 sessions locally."
+        },
+        copy: "© 2025 EcoSage Chat"
+      },
+      nl: {
+        heroH2: "Waar kan ik je mee helpen?",
+        heroP: "Stel al je vragen over Europees energie- & klimaatbeleid.",
+        ph: "Typ je vraag…",
+        send: "Versturen",
+        hist: "Geschiedenis",
+        newChat: "Nieuw gesprek",
+        clear: "Geschiedenis wissen",
+        noSess: "Geen sessies",
+        ex: [
+          "Leg de Europese Green Deal uit",
+          "Belangrijkste punten van Fit-for-55",
+          "Laatste ETS-regels",
+          "Subsidies voor zonnepanelen",
+          "Impact van REPowerEU"
+        ],
+        panel: {
+          settingsTitle: "Instellingen",
+          aboutTitle: "Over EcoSage",
+          theme: "Thema",
+          dark: "Donker",
+          light: "Licht",
+          aboutIntro: "EcoSage Chat helpt je Europees energie- en klimaatbeleid te verkennen.",
+          aboutHow:
+            "• Typ je vraag en druk op Versturen of Enter.\n" +
+            "• Klik op suggesties om een vraag automatisch in te vullen.\n" +
+            "• Geschiedenis bewaart de laatste 20 sessies lokaal."
+        },
+        copy: "© 2025 EcoSage Chat"
+      }
+    };
 
-/* ── UI refresh ── */
-function refreshUI(){
-  const t=TEXT[lang];
-  hero.querySelector("h2").textContent=t.heroH2;
-  hero.querySelector("p").textContent=t.heroP;
-  inp.placeholder=t.ph;sendBtn.textContent=t.send;
-  histTitle.textContent=t.hist;newBtn.textContent=t.newChat;clearBtn.textContent=t.clear;
-  sugg.classList.add("fade");
-  setTimeout(()=>{drawSug();sugg.classList.remove("fade")},350);
-  list();
-}
+    // DOM refs
+    const $ = id => document.getElementById(id);
+    const sidebar    = $("sidebar"),
+          toggle     = $("toggle"),
+          chat       = $("chatlog"),
+          hero       = $("hero"),
+          sugg       = $("suggestions"),
+          inp        = $("userInput"),
+          form       = $("chat-form"),
+          sendBtn    = $("sendBtn"),
+          newBtn     = $("newBtn"),
+          clearBtn   = $("clearHist"),
+          histTitle  = $("histTitle"),
+          histList   = $("histList"),
+          langBtns   = document.querySelectorAll(".lang-btn"),
+          langSlider = $("langSlider"),
+          logoBtn    = $("logoBtn"),
+          rightPanel = $("rightPanel"),
+          panelTitle = $("panelTitle"),
+          panelTabs  = document.querySelectorAll(".panel-tab"),
+          panelContent= $("panelContent");
 
-/* ── Suggestions ── */
-function drawSug(){
-  sugg.innerHTML="";
-  const arr=[...TEXT[lang].ex];
-  for(let i=0;i<5&&arr.length;i++){
-    const txt=arr.splice(Math.random()*arr.length|0,1)[0];
-    const b=document.createElement("button");b.textContent=txt;sugg.appendChild(b);
-  }
-}
-drawSug();
+    let lang = "en", buf = [];
 
-/* ── Sidebar toggle ── */
-toggle.onclick=()=>sidebar.classList.toggle("open");
+    function applyTheme(mode) {
+      document.documentElement.setAttribute("data-theme", mode);
+      localStorage.setItem("ecoTheme", mode);
+    }
 
-/* ── Bubble helpers ── */
-const bubble=(txt,cls)=>{
-  const d=document.createElement("div");
-  d.className=`bubble ${cls}`;d.textContent=txt;
-  chat.appendChild(d);
-  requestAnimationFrame(()=>d.classList.add("in"));
-  chat.scrollTop=chat.scrollHeight;
-};
-const typing=()=>{
-  const d=document.createElement("div");d.className="bubble bot";
-  d.innerHTML='<span class="typing"><span></span><span></span><span></span></span>';
-  chat.appendChild(d);requestAnimationFrame(()=>d.classList.add("in"));
-  chat.scrollTop=chat.scrollHeight;return d;
-};
+    // Language switch
+    langBtns.forEach(btn =>
+      btn.addEventListener("click", () => {
+        langBtns.forEach(b => b.classList.toggle("active", b===btn));
+        lang = btn.dataset.lang;
+        refreshUI();
+      })
+    );
 
-/* ── History helpers ── */
-const getH=()=>JSON.parse(localStorage.getItem(LS)||"[]");
-const saveH=h=>localStorage.setItem(LS,JSON.stringify(h.slice(-20)));
-const store=()=>{if(!buf.length)return;const h=getH();h.push({time:new Date().toLocaleString(),chat:buf});saveH(h);buf=[]};
-const list=()=>{
-  hist.innerHTML="";
-  const h=getH();
-  if(!h.length){
-    hist.innerHTML=`<p style="font-size:.85rem;color:#666">${TEXT[lang].noSess}</p>`;
-    return;
-  }
-  h.slice().reverse().forEach(s=>{
-    const div=document.createElement("div");div.className="session";
-    div.textContent=s.time;div.onclick=()=>load(s);hist.appendChild(div);
-  });
-};
-const load=s=>{
-  sidebar.classList.remove("open");chat.innerHTML="";
-  s.chat.forEach(m=>bubble(m.text,m.role));
-  hero.style.display="none";sugg.style.display="none";
-};
-list();
+    function refreshUI() {
+      const t = TEXT[lang];
+      hero.querySelector("h2").textContent = t.heroH2;
+      hero.querySelector("p").textContent  = t.heroP;
+      inp.placeholder = t.ph;
+      sendBtn.textContent = t.send;
+      histTitle.textContent = t.hist;
+      newBtn.textContent   = t.newChat;
+      clearBtn.textContent = t.clear;
 
-/* ── Buttons ── */
-newBtn.onclick=()=>{store();chat.innerHTML="";hero.style.display="block";sugg.style.display="flex";drawSug();inp.focus()};
-clearBtn.onclick=()=>{localStorage.removeItem(LS);list()};
+      sugg.classList.add("fade");
+      setTimeout(() => { drawSug(); sugg.classList.remove("fade"); }, 350);
+      listHistory();
 
-/* ── Suggestion click ── */
-sugg.onclick=e=>{
-  if(e.target.tagName==="BUTTON"){
-    inp.value=e.target.textContent;form.dispatchEvent(new Event("submit"));
-  }
-};
+      langSlider.style.left = (lang==="en" ? "2px" : "calc(50% + 2px)");
+      panelTabs[0].textContent = t.panel.settingsTitle;
+      panelTabs[1].textContent = t.panel.aboutTitle;
+      renderPanel(document.querySelector(".panel-tab.active").dataset.tab);
+    }
 
-/* ── Form submit ── */
-form.addEventListener("submit",async e=>{
-  e.preventDefault();
-  const msg=inp.value.trim();if(!msg)return;
-  hero.style.display="none";sugg.style.display="none";
-  bubble(msg,"user");buf.push({role:"user",text:msg});
-  inp.value="";inp.focus();
+    // Suggestions
+    function drawSug() {
+      sugg.innerHTML = "";
+      const arr = [...TEXT[lang].ex];
+      for (let i=0; i<5 && arr.length; i++) {
+        const txt = arr.splice(Math.random()*arr.length|0,1)[0];
+        const b = document.createElement("button");
+        b.textContent = txt;
+        sugg.appendChild(b);
+      }
+    }
+    drawSug();
 
-  /* Special keyword: 'test' */
-  if(msg.toLowerCase()==="test"){
-    const wait=typing();            
-    setTimeout(()=>{         
-      wait.remove();
-      bubble("Test animation","bot test-anim");
-      buf.push({role:"bot",text:"Test animation!"});
-    },2000);
-    return;                      
-  }
+    // Sidebar toggle
+    toggle.onclick = () => sidebar.classList.toggle("open");
 
-  const wait=typing();
-  try{
-    const r=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:msg,lang})});
-    const d=await r.json();
-    wait.remove();bubble(d.reply,"bot");buf.push({role:"bot",text:d.reply});
-  }catch{
-    wait.remove();bubble("Something went wrong.","bot");
-  }
-});
+    // Bubble helpers
+    function bubble(txt, cls) {
+      const d = document.createElement("div");
+      d.className = `bubble ${cls}`;
+      d.textContent = txt;
+      chat.appendChild(d);
+      requestAnimationFrame(() => d.classList.add("in"));
+      chat.scrollTop = chat.scrollHeight;
+    }
+    function typing() {
+      const d = document.createElement("div");
+      d.className = "bubble bot";
+      d.innerHTML = '<span class="typing"><span></span><span></span><span></span></span>';
+      chat.appendChild(d);
+      requestAnimationFrame(() => d.classList.add("in"));
+      chat.scrollTop = chat.scrollHeight;
+      return d;
+    }
 
-/* ── Save on unload ── */
-window.addEventListener("beforeunload",store);
-</script>
+    // History helpers
+    function getHistory() { return JSON.parse(localStorage.getItem("ecoHist")||"[]"); }
+    function saveHistory(h) { localStorage.setItem("ecoHist", JSON.stringify(h.slice(-20))); }
+    function storeHistory() {
+      if (!buf.length) return;
+      const h = getHistory(); h.push({ time:new Date().toLocaleString(), chat:buf });
+      saveHistory(h); buf = [];
+    }
+    function listHistory() {
+      histList.innerHTML = "";
+      const h = getHistory();
+      if (!h.length) {
+        histList.innerHTML = `<p style="font-size:.85rem;color:var(--text-secondary)">${TEXT[lang].noSess}</p>`;
+        return;
+      }
+      h.slice().reverse().forEach(s => {
+        const d = document.createElement("div");
+        d.className = "session";
+        d.textContent = s.time;
+        d.onclick = () => loadSession(s);
+        histList.appendChild(d);
+      });
+    }
+    function loadSession(s) {
+      sidebar.classList.remove("open");
+      chat.innerHTML = "";
+      s.chat.forEach(m=>bubble(m.text,m.role));
+      hero.style.display = "none";
+      sugg.style.display = "none";
+    }
+    listHistory();
+
+    newBtn.onclick   = () => { storeHistory(); chat.innerHTML=""; hero.style.display="block"; sugg.style.display="flex"; refreshUI(); inp.focus(); };
+    clearBtn.onclick = () => { localStorage.removeItem("ecoHist"); listHistory(); };
+
+    sugg.onclick = e => {
+      if (e.target.tagName==="BUTTON") {
+        inp.value = e.target.textContent;
+        form.dispatchEvent(new Event("submit"));
+      }
+    };
+
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const msg = inp.value.trim();
+      if (!msg) return;
+      hero.style.display="none";
+      sugg.style.display="none";
+      bubble(msg,"user");
+      buf.push({ role:"user", text:msg });
+      inp.value=""; inp.focus();
+
+      if (msg.toLowerCase()==="test") {
+        const w = typing();
+        setTimeout(()=>{
+          w.remove();
+          bubble("Test animation","bot test-anim");
+          buf.push({ role:"bot", text:"Test animation!" });
+        },2000);
+        return;
+      }
+
+      const w = typing();
+      try {
+        const r = await fetch("/chat", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({ message:msg, lang })
+        });
+        const d = await r.json();
+        w.remove();
+        bubble(d.reply,"bot");
+        buf.push({ role:"bot", text:d.reply });
+      } catch {
+        w.remove();
+        bubble("Something went wrong.","bot");
+      }
+    });
+
+    // Right-panel logic
+    function renderPanel(tab) {
+      const P = TEXT[lang].panel;
+      panelTabs.forEach(t=>t.classList.toggle("active", t.dataset.tab===tab));
+      panelTitle.textContent = tab==="settings"?P.settingsTitle:P.aboutTitle;
+      panelContent.innerHTML = "";
+      if (tab==="settings") {
+        panelContent.innerHTML = `
+          <strong>${P.theme}</strong>
+          <div class="theme-toggle">
+            <div class="theme-slider"></div>
+            <button class="theme-btn${document.documentElement.getAttribute("data-theme")==="dark"?" active":""}" data-theme="dark">${P.dark}</button>
+            <button class="theme-btn${document.documentElement.getAttribute("data-theme")==="light"?" active":""}" data-theme="light">${P.light}</button>
+          </div>`;
+        document.querySelectorAll(".theme-btn").forEach(b => {
+          b.onclick = () => {
+            document.querySelectorAll(".theme-btn").forEach(x=>x.classList.toggle("active", x===b));
+            applyTheme(b.dataset.theme);
+            document.querySelector(".theme-slider").style.left = b.dataset.theme==="dark"?"2px":"calc(50% + 2px)";
+          };
+        });
+      } else {
+        panelContent.innerHTML = `
+          <p>${P.aboutIntro}</p>
+          <ul class="about-list">
+            ${P.aboutHow.split("\n").map(line=>`<li>${line.replace(/^•\s*/,'')}</li>`).join("")}
+          </ul>
+          <p style="margin-top:24px;color:var(--text-secondary);font-size:.9rem">
+            ${TEXT[lang].copy}
+          </p>`;
+      }
+    }
+
+    logoBtn.addEventListener("click", e=>{
+      e.stopPropagation();
+      rightPanel.classList.toggle("open");
+    });
+    document.querySelector(".panel-close").onclick = ()=> rightPanel.classList.remove("open");
+    document.addEventListener("click", e=>{
+      if (!rightPanel.contains(e.target) && !logoBtn.contains(e.target)) {
+        rightPanel.classList.remove("open");
+      }
+    });
+    document.addEventListener("keydown", e=>{
+      if (e.key==="Escape") rightPanel.classList.remove("open");
+    });
+    panelTabs.forEach(tab => tab.onclick = ()=> renderPanel(tab.dataset.tab));
+
+    // Initialize
+    refreshUI();
+    renderPanel("settings");
+  </script>
 </body>
 </html>

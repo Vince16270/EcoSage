@@ -1,6 +1,6 @@
 metric,value
-total_pairs,10.00
+total_pairs,100.00
 avg_exact_match,0.00
-avg_word_overlap,38.58
-avg_bleu,0.34
-avg_rouge1_f1,5.68
+avg_word_overlap,28.76
+avg_bleu,0.48
+avg_rouge1_f1,6.55
