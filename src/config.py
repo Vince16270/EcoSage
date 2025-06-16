@@ -21,7 +21,7 @@ GENERATION_MODEL_NAME  = "NousResearch/Hermes-3-Llama-3.2-3B"
 TRANSLATION_MODEL      = "Helsinki-NLP/opus-mt-en-nl"
 TOP_K        = 5
 CHUNK_SIZE   = 512
-OVERLAP      = 50
+OVERLAP      = 100
 
 # Device selection 
 device_env = os.getenv("DEVICE", "auto").lower()          
