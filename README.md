@@ -91,13 +91,13 @@ This will:
 python -m src.api
 ```
 
-* Flask serves at **`http://127.0.0.1:5000`**.
+* Flask serves at **`http://127.0.0.1:5001`**.
 * Static files in `frontend/` are auto-served.
 
 ### 7. Open the chat UI
 
 ```
-http://127.0.0.1:5000
+http://127.0.0.1:5001
 ```
 
 Ask a question, watch the typing dots, and then get an answer.
@@ -106,7 +106,7 @@ Ask a question, watch the typing dots, and then get an answer.
 
 | Variable            | Description                  | Default                              |
 | ------------------- | ---------------------------- | ------------------------------------ |
-| `PORT`              | Flask port                   | `5000`                               |
+| `PORT`              | Flask port                   | `5001`                               |
 | `DEVICE`            | `cpu`, `cuda`, `mps`, `auto` | `auto`                               |
 | `MODEL_NAME`        | HF ID for generator model    | `NousResearch/Hermes-3-Llama-3.2-3B` |
 | `TRANSLATION_MODEL` | HF ID for EN→NL translator   | `Helsinki-NLP/opus-mt-en-nl`         |
